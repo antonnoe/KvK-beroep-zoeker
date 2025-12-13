@@ -110,13 +110,7 @@ button:hover{opacity:.9}
 <section class="intro">
 <h1>Ondernemen in Frankrijk: welke instanties zijn verplicht?</h1>
 <p>
-Wie in Frankrijk een bedrijf start, krijgt vrijwel altijd te maken met verschillende instanties zoals
-<strong>CMA</strong>, <strong>CCI</strong>, <strong>URSSAF</strong> of de <strong>gemeente</strong>.
-Welke verplichtingen gelden, hangt af van het <em>beroep</em> én de <em>locatie</em>.
-</p>
-<p>
-Met deze tool controleert u per postcode en activiteit welke registraties, vergunningen of diploma’s
-in de praktijk vereist zijn. De informatie is indicatief en gebaseerd op gangbare Franse regels.
+Controleer per postcode en beroep welke instanties, vergunningen en registraties in Frankrijk gebruikelijk zijn.
 </p>
 </section>
 
@@ -159,7 +153,7 @@ in de praktijk vereist zijn. De informatie is indicatief en gebaseerd op gangbar
 </div>
 
 <div id="result">
-<p><strong>Locatie:</strong> <span id="city">–</span> (<span id="dept">–</span>)</p>
+<p><strong>Locatie:</strong> <span id="city">–</span></p>
 <div id="list"></div>
 <a class="footer-link" href="https://formalites.entreprises.gouv.fr/" target="_blank" rel="noopener">
 Ga naar Guichet Unique →
@@ -233,19 +227,38 @@ btn.onclick=function(){
     return;
   }
 
-  fetch('https://api-adresse.data.gouv.fr/search/?q='+pc+'&type=municipality&limit=1')
+  fetch('https://api-adresse.data.gouv.fr/search/?postcode='+pc+'&type=municipality')
     .then(r=>r.json())
     .then(d=>{
-      if(!d.features.length) throw 1;
-      const p=d.features[0].properties;
-      document.getElementById('city').textContent=p.city;
-      document.getElementById('dept').textContent=p.context;
+      if(!d.features || !d.features.length) throw 1;
+
+      const cities = d.features
+        .map(f => f.properties.city || f.properties.label || f.properties.name)
+        .filter(Boolean);
+
+      let dept = '';
+      const ctx = d.features[0].properties.context;
+      if (ctx) dept = ctx.split(',')[0].trim();
+
+      let cityText = '';
+      if (cities.length === 1) {
+        cityText = cities[0] + (dept ? ' ('+dept+')' : '');
+      } else {
+        const shown = cities.slice(0,5);
+        cityText = 'Meerdere gemeenten ('+pc+'): ' + shown.join(', ');
+        if (cities.length > 5) cityText += ' …';
+        if (dept) cityText += ' ('+dept+')';
+      }
+
+      document.getElementById('city').textContent = cityText;
 
       let html='';
       (rules[job]||[]).forEach(r=>{
         html+='<div class="box"><strong>'+r.n+'</strong><br>'+r.t+'</div>';
       });
-      document.getElementById('list').innerHTML=html||'Geen specifieke verplichtingen gevonden.';
+      document.getElementById('list').innerHTML =
+        html || 'Geen specifieke verplichtingen gevonden.';
+
       res.style.display='block';
     })
     .catch(()=>{
