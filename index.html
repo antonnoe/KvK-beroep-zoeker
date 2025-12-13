@@ -11,96 +11,22 @@
 
 <style>
 *{box-sizing:border-box}
-body{
-  margin:0;
-  font-family:Mulish,Arial,sans-serif;
-  background:#f6f6f6;
-  color:#333;
-}
-main{
-  max-width:760px;
-  margin:20px auto;
-  padding:16px;
-}
-h1,h2{
-  font-family:Poppins,sans-serif;
-  color:#800000;
-}
-.intro{
-  background:#fff;
-  padding:20px;
-  border-radius:8px;
-  margin-bottom:16px;
-  border:1px solid #e0e0e0;
-}
-#tool{
-  background:#fff;
-  border:1px solid #e0e0e0;
-  border-radius:8px;
-  overflow:hidden;
-}
-.header{
-  background:#800000;
-  color:#fff;
-  padding:20px;
-  text-align:center;
-}
-.content{
-  padding:20px;
-}
-label{
-  font-weight:700;
-  display:block;
-  margin-bottom:6px;
-}
-input,select{
-  width:100%;
-  padding:12px;
-  margin-bottom:16px;
-  border:1px solid #ccc;
-  border-radius:4px;
-  font-size:16px;
-}
-button{
-  width:100%;
-  background:#800000;
-  color:#fff;
-  border:none;
-  padding:14px;
-  font-family:Poppins,sans-serif;
-  font-weight:600;
-  cursor:pointer;
-  border-radius:4px;
-}
+body{margin:0;font-family:Mulish,Arial,sans-serif;background:#f6f6f6;color:#333}
+main{max-width:760px;margin:20px auto;padding:16px}
+h1,h2{font-family:Poppins,sans-serif;color:#800000}
+.intro{background:#fff;padding:20px;border-radius:8px;margin-bottom:16px;border:1px solid #e0e0e0}
+#tool{background:#fff;border:1px solid #e0e0e0;border-radius:8px;overflow:hidden}
+.header{background:#800000;color:#fff;padding:20px;text-align:center}
+.content{padding:20px}
+label{font-weight:700;display:block;margin-bottom:6px}
+input,select{width:100%;padding:12px;margin-bottom:16px;border:1px solid #ccc;border-radius:4px;font-size:16px}
+button{width:100%;background:#800000;color:#fff;border:none;padding:14px;font-family:Poppins,sans-serif;font-weight:600;cursor:pointer;border-radius:4px}
 button:hover{opacity:.9}
-#error{
-  display:none;
-  background:#ffecec;
-  color:#a00;
-  padding:10px;
-  margin-top:10px;
-  border-radius:4px;
-}
-#result{
-  display:none;
-  background:#fffce6;
-  padding:20px;
-  border-top:1px solid #eee;
-}
-.box{
-  background:#fff;
-  border:1px solid #eaddb6;
-  padding:12px;
-  margin-bottom:8px;
-  border-left:4px solid #800000;
-}
-.footer-link{
-  display:block;
-  margin-top:20px;
-  text-align:center;
-  font-weight:700;
-  color:#800000;
-}
+#error{display:none;background:#ffecec;color:#a00;padding:10px;margin-top:10px;border-radius:4px}
+#result{display:none;background:#fffce6;padding:20px;border-top:1px solid #eee}
+.box{background:#fff;border:1px solid #eaddb6;padding:12px;margin-bottom:8px;border-left:4px solid #800000}
+.footer-link{display:block;margin-top:20px;text-align:center;font-weight:700;color:#800000}
+.small{font-size:13px;opacity:.85;margin-top:10px}
 </style>
 </head>
 
@@ -109,9 +35,7 @@ button:hover{opacity:.9}
 
 <section class="intro">
 <h1>Ondernemen in Frankrijk: welke instanties zijn verplicht?</h1>
-<p>
-Controleer per postcode en beroep welke instanties, vergunningen en registraties in Frankrijk gebruikelijk zijn.
-</p>
+<p>Controleer per postcode en beroep welke instanties, vergunningen en registraties in Frankrijk gebruikelijk zijn.</p>
 </section>
 
 <section id="tool">
@@ -122,7 +46,7 @@ Controleer per postcode en beroep welke instanties, vergunningen en registraties
 
 <div class="content">
 <label for="pc">Postcode</label>
-<input id="pc" type="text" placeholder="Bijv. 24000" maxlength="5">
+<input id="pc" type="text" placeholder="Bijv. 62170" maxlength="5" inputmode="numeric">
 
 <label for="job">Beroep</label>
 <select id="job">
@@ -148,16 +72,15 @@ Controleer per postcode en beroep welke instanties, vergunningen en registraties
 </optgroup>
 </select>
 
-<button id="btn">Zoek instanties</button>
+<button id="btn" type="button">Zoek instanties</button>
 <div id="error"></div>
+<div class="small">Let op: sommige postcodes horen bij meerdere gemeenten.</div>
 </div>
 
 <div id="result">
 <p><strong>Locatie:</strong> <span id="city">–</span></p>
 <div id="list"></div>
-<a class="footer-link" href="https://formalites.entreprises.gouv.fr/" target="_blank" rel="noopener">
-Ga naar Guichet Unique →
-</a>
+<a class="footer-link" href="https://formalites.entreprises.gouv.fr/" target="_blank" rel="noopener">Ga naar Guichet Unique →</a>
 </div>
 </section>
 
@@ -205,65 +128,75 @@ const rules = {
   ]
 };
 
-const btn=document.getElementById('btn');
-const err=document.getElementById('error');
-const res=document.getElementById('result');
+const btn = document.getElementById('btn');
+const err = document.getElementById('error');
+const res = document.getElementById('result');
 
-btn.onclick=function(){
-  err.style.display='none';
-  res.style.display='none';
+function showError(msg){
+  err.textContent = msg;
+  err.style.display = 'block';
+}
 
-  const pc=document.getElementById('pc').value.trim();
-  const job=document.getElementById('job').value;
+btn.onclick = function(){
+  err.style.display = 'none';
+  res.style.display = 'none';
+
+  const pc = document.getElementById('pc').value.trim();
+  const job = document.getElementById('job').value;
 
   if(!/^\d{5}$/.test(pc)){
-    err.textContent='Vul een geldige postcode in.';
-    err.style.display='block';
+    showError('Vul een geldige postcode in (5 cijfers).');
     return;
   }
   if(!job){
-    err.textContent='Kies een beroep.';
-    err.style.display='block';
+    showError('Kies een beroep.');
     return;
   }
 
-  fetch('https://api-adresse.data.gouv.fr/search/?postcode='+pc+'&type=municipality')
-    .then(r=>r.json())
-    .then(d=>{
-      if(!d.features || !d.features.length) throw 1;
+  btn.disabled = true;
+  btn.textContent = 'Zoeken...';
 
-      const cities = d.features
-        .map(f => f.properties.city || f.properties.label || f.properties.name)
-        .filter(Boolean);
+  // ROBUUST: officiële postcode→communes via API Découpage administratif
+  const url = 'https://geo.api.gouv.fr/communes?codePostal='
+    + encodeURIComponent(pc)
+    + '&fields=nom,codeDepartement,codeRegion&format=json';
 
-      let dept = '';
-      const ctx = d.features[0].properties.context;
-      if (ctx) dept = ctx.split(',')[0].trim();
+  fetch(url)
+    .then(r => {
+      if(!r.ok) throw new Error('HTTP');
+      return r.json();
+    })
+    .then(list => {
+      if(!Array.isArray(list) || list.length === 0) throw new Error('EMPTY');
+
+      const cities = list.map(x => x.nom).filter(Boolean);
+      const dept = list[0].codeDepartement || '';
 
       let cityText = '';
       if (cities.length === 1) {
-        cityText = cities[0] + (dept ? ' ('+dept+')' : '');
+        cityText = cities[0] + (dept ? ' (' + dept + ')' : '');
       } else {
-        const shown = cities.slice(0,5);
-        cityText = 'Meerdere gemeenten ('+pc+'): ' + shown.join(', ');
-        if (cities.length > 5) cityText += ' …';
-        if (dept) cityText += ' ('+dept+')';
+        const shown = cities.slice(0, 6);
+        cityText = 'Meerdere gemeenten (' + pc + '): ' + shown.join(', ');
+        if (cities.length > 6) cityText += ' …';
+        if (dept) cityText += ' (' + dept + ')';
       }
 
       document.getElementById('city').textContent = cityText;
 
-      let html='';
-      (rules[job]||[]).forEach(r=>{
-        html+='<div class="box"><strong>'+r.n+'</strong><br>'+r.t+'</div>';
+      let html = '';
+      (rules[job] || []).forEach(r => {
+        html += '<div class="box"><strong>' + r.n + '</strong><br>' + r.t + '</div>';
       });
-      document.getElementById('list').innerHTML =
-        html || 'Geen specifieke verplichtingen gevonden.';
-
-      res.style.display='block';
+      document.getElementById('list').innerHTML = html || 'Geen specifieke verplichtingen gevonden.';
+      res.style.display = 'block';
     })
-    .catch(()=>{
-      err.textContent='Postcode niet gevonden.';
-      err.style.display='block';
+    .catch(() => {
+      showError('Postcode niet gevonden.');
+    })
+    .finally(() => {
+      btn.disabled = false;
+      btn.textContent = 'Zoek instanties';
     });
 };
 })();
