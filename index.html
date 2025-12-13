@@ -26,15 +26,15 @@ main {
   padding: 20px;
 }
 
-/* --- TYPOGRAFIE & KLEUREN --- */
+/* --- TYPOGRAFIE & KLEUREN (HUISSTIJL) --- */
 h1, h2, h3 {
   font-family: 'Poppins', sans-serif;
   color: #800000; /* Kastanjebruin */
   margin-top: 0;
 }
 
-h1 { font-size: 28px; margin-bottom: 15px; }
-h2 { font-size: 22px; }
+h1 { font-size: 30px; margin-bottom: 5px; } /* BEROEPSGIDS FRANKRIJK */
+h2 { font-size: 22px; } /* Instellingzoeker */
 h3 { font-size: 18px; margin-bottom: 10px; }
 
 a { text-decoration: none; transition: 0.2s; color: #800000; font-weight: 600; }
@@ -138,7 +138,7 @@ button.main-btn:hover { opacity: 0.9; }
   margin-top: 12px;
   padding: 10px 15px;
   background-color: #f4f4f4;
-  color: #333 !important; /* Forceer kleur */
+  color: #333 !important; 
   font-size: 14px;
   font-weight: 700;
   border-radius: 4px;
@@ -158,22 +158,25 @@ button.main-btn:hover { opacity: 0.9; }
   font-size: 15px;
   color: #444;
   margin-top: 25px;
-  border-left: 5px solid #d9534f; /* Opvallende rode rand voor tips */
+  border-left: 5px solid #d9534f; /* Rode rand voor tips/waarschuwingen */
   border-top: 1px solid #eee;
   border-right: 1px solid #eee;
   border-bottom: 1px solid #eee;
   line-height: 1.6em;
 }
 
-/* CTA Onderaan (Guichet) */
+/* CTA Onderaan (Guichet + Checker) */
 .cta-bottom-container {
   margin-top: 40px; 
   text-align: center;
   padding-top: 25px;
   border-top: 1px solid #eaddb6;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
-.guichet-link {
+.cta-link {
   background-color: #800000;
   color: #ffffff !important;
   padding: 15px 30px;
@@ -185,14 +188,26 @@ button.main-btn:hover { opacity: 0.9; }
   display: inline-block;
   transition: background 0.3s ease;
 }
-.guichet-link:hover {
+.cta-link:hover {
   background-color: #600000;
 }
 
 .sub-text {
   font-size: 0.9em;
-  margin-top: 10px;
   color: #666;
+  line-height: 1.4em;
+}
+
+/* Specifieke CTA voor de Beroepenchecker (onderaan) */
+.cta-checker {
+  background-color: #fff; 
+  color: #800000 !important;
+  border: 2px solid #800000;
+  margin-top: 20px;
+}
+.cta-checker:hover {
+  background-color: #800000;
+  color: #fff !important;
 }
 </style>
 </head>
@@ -200,7 +215,7 @@ button.main-btn:hover { opacity: 0.9; }
 
 <main>
   <div style="margin-bottom: 30px; text-align: center;">
-    <h1>Beroepenchecker Frankrijk</h1>
+    <h1>BEROEPSGIDS FRANKRIJK</h1>
     <p style="font-size: 18px; color: #555;">
       Selecteer uw beroep en ontdek direct de verplichtingen en lokale instanties.
     </p>
@@ -208,7 +223,7 @@ button.main-btn:hover { opacity: 0.9; }
 
   <div class="card">
     <div class="header-bg">
-      <h2>Check Eisen & Contactgegevens</h2>
+      <h2>Instellingzoeker</h2>
       <p>Zoek op postcode & activiteit</p>
     </div>
 
@@ -322,10 +337,15 @@ button.main-btn:hover { opacity: 0.9; }
       <div id="res-tips" class="tip-box" style="display:none;"></div>
       
       <div class="cta-bottom-container">
-        <a href="https://formalites.entreprises.gouv.fr/" target="_blank" class="guichet-link">
+        <a href="https://formalites.entreprises.gouv.fr/" target="_blank" class="cta-link">
             Naar Guichet Unique (INPI) &rarr;
         </a>
-        <div class="sub-text">Het officiële nationale registratieportaal.</div>
+        <div class="sub-text" style="margin-top: -10px;">Het officiële nationale registratieportaal.</div>
+        
+        <a href="https://infofrankrijk.com/beroepenchecker-werken-of-ondernemen-in-frankrijk/" class="cta-link cta-checker">
+            &larr; Terug naar het Beroepen Overzicht
+        </a>
+        <div class="sub-text" style="margin-top: -10px;">Een overzicht van alle 61 gereguleerde beroepen per sector.</div>
       </div>
 
     </div>
@@ -355,7 +375,7 @@ button.main-btn:hover { opacity: 0.9; }
     },
     CA: {
       n: "Chambre d'Agriculture",
-      t: "Voor alle agrarische activiteiten en aanverwante beroepen.",
+      t: "Voor alle agrarische activiteiten en aanverwante beroepen (MSA).",
       q: "Chambre d'Agriculture"
     },
     MAIRIE: { 
@@ -399,7 +419,7 @@ button.main-btn:hover { opacity: 0.9; }
     metselaar: { inst: ["CMA"], tip: "<strong>Let op:</strong> Zwaar gereguleerd. Diploma en verzekering zijn cruciaal voor aansprakelijkheid." },
     tegelzetter: { inst: ["CMA"], tip: "Valt onder afbouw. Verzekeringsplicht geldt ook hier." },
     
-    // ARCHITECT (Verrijkt met link)
+    // ARCHITECT
     architect: { inst: ["URSSAF"], tip: "Beschermd beroep. Inschrijving bij de <a href='https://www.architectes.org/' target='_blank'>Ordre des Architectes</a> is verplicht vóór u mag starten." },
     interieur: { inst: ["CMA", "URSSAF"], tip: "Let op: Als u structurele muren wijzigt is een Architect nodig. Alleen decoratie? Dan vrij beroep." },
     
@@ -522,7 +542,7 @@ button.main-btn:hover { opacity: 0.9; }
           // Zoekterm logica
           var zoekLocatie = stad;
           // Grote instanties zitten vaak per departement (hoofdstad)
-          if (code === 'CMA' || code === 'CCI' || code === 'CA' || code === 'PREF' || code === 'ARS') {
+          if (code === 'CMA' || code === 'CCI' || code === 'CA' || code === 'PREF' || code === 'ARS' || code === 'GRIFF') {
              zoekLocatie = "departement " + dept;
           }
           
