@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <title>Ondernemen in Frankrijk – registratiecheck per beroep en locatie</title>
-<meta name="description" content="Controleer per beroep en postcode in Frankrijk welke instanties verplicht zijn: CMA, CCI, URSSAF, gemeente, diploma’s en vergunningen. Praktische tool voor ondernemers.">
+<meta name="description" content="Controleer per beroep en postcode in Frankrijk welke instanties verplicht zijn. Praktische registratiecheck voor ondernemers, met focus op bouw, diensten en toerisme.">
 
 <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@400;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
 
@@ -35,7 +35,10 @@ button:hover{opacity:.9}
 
 <section class="intro">
 <h1>Ondernemen in Frankrijk: welke instanties zijn verplicht?</h1>
-<p>Controleer per postcode en beroep welke instanties, vergunningen en registraties in Frankrijk gebruikelijk zijn.</p>
+<p>
+Controleer per postcode en beroep welke registraties, verzekeringen en meldingen in Frankrijk
+gebruikelijk zijn. De uitkomst is indicatief en gebaseerd op gangbare praktijk.
+</p>
 </section>
 
 <section id="tool">
@@ -51,25 +54,24 @@ button:hover{opacity:.9}
 <label for="job">Beroep</label>
 <select id="job">
 <option value="">— Kies activiteit —</option>
-<optgroup label="Bouw & Ambacht">
-<option value="algemeen_bouw">Algemene bouw</option>
+
+<optgroup label="Bouw – Second œuvre">
+<option value="schilder">Schilder</option>
 <option value="loodgieter">Loodgieter</option>
 <option value="elektricien">Elektricien</option>
-<option value="schilder">Schilder</option>
-<option value="timmerman">Timmerman</option>
+<option value="timmerman">Timmerman / menuisier</option>
 </optgroup>
-<optgroup label="Horeca & Toerisme">
-<option value="gite">Gîte / verhuur</option>
-<option value="chambre_hotes">Chambre d’hôtes</option>
-<option value="restaurant">Restaurant</option>
-<option value="foodtruck">Foodtruck</option>
+
+<optgroup label="Bouw – Gros œuvre">
+<option value="metselaar">Metselaar / gros œuvre</option>
 </optgroup>
+
 <optgroup label="Diensten">
 <option value="consultant">Consultant / coach</option>
 <option value="web_it">IT / webdiensten</option>
 <option value="schoonmaak">Schoonmaak</option>
-<option value="fotograaf">Fotograaf</option>
 </optgroup>
+
 </select>
 
 <button id="btn" type="button">Zoek instanties</button>
@@ -80,7 +82,12 @@ button:hover{opacity:.9}
 <div id="result">
 <p><strong>Locatie:</strong> <span id="city">–</span></p>
 <div id="list"></div>
-<a class="footer-link" href="https://formalites.entreprises.gouv.fr/" target="_blank" rel="noopener">Ga naar Guichet Unique →</a>
+<a class="footer-link" href="https://formalites.entreprises.gouv.fr/" target="_blank" rel="noopener">
+Ga naar Guichet Unique →
+</a>
+<p class="small">
+Indicatief overzicht. Lokale autoriteiten of opdrachtgevers kunnen aanvullende eisen stellen.
+</p>
 </div>
 </section>
 
@@ -88,117 +95,99 @@ button:hover{opacity:.9}
 
 <script>
 (function(){
+
 const rules = {
-  algemeen_bouw:[
-    {n:"CMA",t:"Inschrijving Chambre de Métiers"},
-    {n:"Verzekering",t:"Décennale verplicht"}
+  schilder:[
+    {n:"Registratie",t:"Inschrijving bij CMA (artisan). Auto-entrepreneur of société mogelijk."},
+    {n:"Verzekering",t:"Assurance décennale vereist bij bouwkundig werk. Attestation vóór start werk."},
+    {n:"Aanvullend",t:"Activiteitenomschrijving moet overeenkomen met uitgevoerde werkzaamheden."}
   ],
   loodgieter:[
-    {n:"CMA",t:"Ambachtelijke registratie"},
-    {n:"Verzekering",t:"Décennale verplicht"}
+    {n:"Registratie",t:"Inschrijving bij CMA (artisan)."},
+    {n:"Verzekering",t:"Assurance décennale verplicht bij installatiewerkzaamheden."},
+    {n:"Aanvullend",t:"Werkzaamheden moeten gedekt zijn door de verzekering."}
   ],
   elektricien:[
-    {n:"CMA",t:"Ambachtelijke registratie"},
-    {n:"CONSUEL",t:"Keuring elektrische installatie"}
+    {n:"Registratie",t:"Inschrijving bij CMA (artisan)."},
+    {n:"Verzekering",t:"Assurance décennale bij elektrische installaties in gebouwen."},
+    {n:"Aanvullend",t:"CONSUEL-keuring kan vereist zijn bij nieuwe installaties."}
   ],
-  schilder:[{n:"CMA",t:"Ambachtelijke registratie"}],
-  timmerman:[{n:"CMA",t:"Ambachtelijke registratie"}],
-  gite:[
-    {n:"Mairie",t:"Aanmelding verhuur"},
-    {n:"Belasting",t:"LMNP / inkomstenbelasting"}
+  timmerman:[
+    {n:"Registratie",t:"Inschrijving bij CMA (artisan)."},
+    {n:"Verzekering",t:"Décennale vereist bij vast bouwkundig werk."},
+    {n:"Aanvullend",t:"Onderscheid tussen afwerking en dragend werk is relevant."}
   ],
-  chambre_hotes:[
-    {n:"Mairie",t:"Verplichte melding"},
-    {n:"CCI / CMA",t:"Afhankelijk van activiteit"}
+  metselaar:[
+    {n:"Registratie",t:"Inschrijving bij CMA (artisan)."},
+    {n:"Verzekering",t:"Assurance décennale verplicht (gros œuvre)."},
+    {n:"Aanvullend",t:"Zonder geldige verzekering mag geen werk worden uitgevoerd."}
   ],
-  restaurant:[
-    {n:"CCI",t:"Commerciële inschrijving"},
-    {n:"Mairie",t:"Drank- en exploitatievergunning"}
+  consultant:[
+    {n:"Registratie",t:"URSSAF – vrij beroep (BNC)."}
   ],
-  foodtruck:[
-    {n:"CCI / CMA",t:"Afhankelijk van bereiding"},
-    {n:"Mairie",t:"Standplaatsvergunning"}
+  web_it:[
+    {n:"Registratie",t:"URSSAF – vrij beroep."}
   ],
-  consultant:[{n:"URSSAF",t:"Vrij beroep (BNC)"}],
-  web_it:[{n:"URSSAF",t:"Vrij beroep"}],
-  schoonmaak:[{n:"CMA",t:"Ambachtelijke registratie"}],
-  fotograaf:[
-    {n:"CMA",t:"Ambachtelijk"},
-    {n:"URSSAF",t:"Artistiek regime mogelijk"}
+  schoonmaak:[
+    {n:"Registratie",t:"Inschrijving bij CMA (artisan)."},
+    {n:"Verzekering",t:"Aansprakelijkheidsverzekering sterk aanbevolen."}
   ]
 };
 
-const btn = document.getElementById('btn');
-const err = document.getElementById('error');
-const res = document.getElementById('result');
+const btn=document.getElementById('btn');
+const err=document.getElementById('error');
+const res=document.getElementById('result');
 
-function showError(msg){
-  err.textContent = msg;
-  err.style.display = 'block';
-}
+btn.onclick=function(){
+  err.style.display='none';
+  res.style.display='none';
 
-btn.onclick = function(){
-  err.style.display = 'none';
-  res.style.display = 'none';
-
-  const pc = document.getElementById('pc').value.trim();
-  const job = document.getElementById('job').value;
+  const pc=document.getElementById('pc').value.trim();
+  const job=document.getElementById('job').value;
 
   if(!/^\d{5}$/.test(pc)){
-    showError('Vul een geldige postcode in (5 cijfers).');
+    err.textContent='Vul een geldige postcode in.';
+    err.style.display='block';
     return;
   }
   if(!job){
-    showError('Kies een beroep.');
+    err.textContent='Kies een beroep.';
+    err.style.display='block';
     return;
   }
 
-  btn.disabled = true;
-  btn.textContent = 'Zoeken...';
+  fetch('https://geo.api.gouv.fr/communes?codePostal='+pc+'&fields=nom,codeDepartement')
+    .then(r=>r.json())
+    .then(list=>{
+      if(!list.length) throw 1;
 
-  // ROBUUST: officiële postcode→communes via API Découpage administratif
-  const url = 'https://geo.api.gouv.fr/communes?codePostal='
-    + encodeURIComponent(pc)
-    + '&fields=nom,codeDepartement,codeRegion&format=json';
+      const cities=list.map(c=>c.nom);
+      const dept=list[0].codeDepartement;
 
-  fetch(url)
-    .then(r => {
-      if(!r.ok) throw new Error('HTTP');
-      return r.json();
-    })
-    .then(list => {
-      if(!Array.isArray(list) || list.length === 0) throw new Error('EMPTY');
-
-      const cities = list.map(x => x.nom).filter(Boolean);
-      const dept = list[0].codeDepartement || '';
-
-      let cityText = '';
-      if (cities.length === 1) {
-        cityText = cities[0] + (dept ? ' (' + dept + ')' : '');
-      } else {
-        const shown = cities.slice(0, 6);
-        cityText = 'Meerdere gemeenten (' + pc + '): ' + shown.join(', ');
-        if (cities.length > 6) cityText += ' …';
-        if (dept) cityText += ' (' + dept + ')';
+      let cityText='';
+      if(cities.length===1){
+        cityText=cities[0]+' ('+dept+')';
+      }else{
+        cityText='Meerdere gemeenten ('+pc+'): '+cities.slice(0,6).join(', ');
+        if(cities.length>6) cityText+=' …';
+        cityText+=' ('+dept+')';
       }
 
-      document.getElementById('city').textContent = cityText;
+      document.getElementById('city').textContent=cityText;
 
-      let html = '';
-      (rules[job] || []).forEach(r => {
-        html += '<div class="box"><strong>' + r.n + '</strong><br>' + r.t + '</div>';
+      let html='';
+      (rules[job]||[]).forEach(r=>{
+        html+='<div class="box"><strong>'+r.n+'</strong><br>'+r.t+'</div>';
       });
-      document.getElementById('list').innerHTML = html || 'Geen specifieke verplichtingen gevonden.';
-      res.style.display = 'block';
+      document.getElementById('list').innerHTML=html;
+      res.style.display='block';
     })
-    .catch(() => {
-      showError('Postcode niet gevonden.');
-    })
-    .finally(() => {
-      btn.disabled = false;
-      btn.textContent = 'Zoek instanties';
+    .catch(()=>{
+      err.textContent='Postcode niet gevonden.';
+      err.style.display='block';
     });
 };
+
 })();
 </script>
 
