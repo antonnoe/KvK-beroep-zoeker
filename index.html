@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Ondernemen in Frankrijk – registratiecheck per beroep en locatie</title>
+<meta name="description" content="Controleer per beroep en postcode in Frankrijk welke instanties verplicht zijn: CMA, CCI, URSSAF, gemeente, diploma’s en vergunningen. Praktische tool voor ondernemers.">
+
+<link href="https://fonts.googleapis.com/css2?family=Mulish:wght@400;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Mulish,Arial,sans-serif;
+  background:#f6f6f6;
+  color:#333;
+}
+main{
+  max-width:760px;
+  margin:20px auto;
+  padding:16px;
+}
+h1,h2{
+  font-family:Poppins,sans-serif;
+  color:#800000;
+}
+.intro{
+  background:#fff;
+  padding:20px;
+  border-radius:8px;
+  margin-bottom:16px;
+  border:1px solid #e0e0e0;
+}
+#tool{
+  background:#fff;
+  border:1px solid #e0e0e0;
+  border-radius:8px;
+  overflow:hidden;
+}
+.header{
+  background:#800000;
+  color:#fff;
+  padding:20px;
+  text-align:center;
+}
+.content{
+  padding:20px;
+}
+label{
+  font-weight:700;
+  display:block;
+  margin-bottom:6px;
+}
+input,select{
+  width:100%;
+  padding:12px;
+  margin-bottom:16px;
+  border:1px solid #ccc;
+  border-radius:4px;
+  font-size:16px;
+}
+button{
+  width:100%;
+  background:#800000;
+  color:#fff;
+  border:none;
+  padding:14px;
+  font-family:Poppins,sans-serif;
+  font-weight:600;
+  cursor:pointer;
+  border-radius:4px;
+}
+button:hover{opacity:.9}
+#error{
+  display:none;
+  background:#ffecec;
+  color:#a00;
+  padding:10px;
+  margin-top:10px;
+  border-radius:4px;
+}
+#result{
+  display:none;
+  background:#fffce6;
+  padding:20px;
+  border-top:1px solid #eee;
+}
+.box{
+  background:#fff;
+  border:1px solid #eaddb6;
+  padding:12px;
+  margin-bottom:8px;
+  border-left:4px solid #800000;
+}
+.footer-link{
+  display:block;
+  margin-top:20px;
+  text-align:center;
+  font-weight:700;
+  color:#800000;
+}
+</style>
+</head>
+
+<body>
+<main>
+
+<section class="intro">
+<h1>Ondernemen in Frankrijk: welke instanties zijn verplicht?</h1>
+<p>
+Wie in Frankrijk een bedrijf start, krijgt vrijwel altijd te maken met verschillende instanties zoals
+<strong>CMA</strong>, <strong>CCI</strong>, <strong>URSSAF</strong> of de <strong>gemeente</strong>.
+Welke verplichtingen gelden, hangt af van het <em>beroep</em> én de <em>locatie</em>.
+</p>
+<p>
+Met deze tool controleert u per postcode en activiteit welke registraties, vergunningen of diploma’s
+in de praktijk vereist zijn. De informatie is indicatief en gebaseerd op gangbare Franse regels.
+</p>
+</section>
+
+<section id="tool">
+<div class="header">
+<h2>Registratie-check ondernemer Frankrijk</h2>
+<p>Postcode + beroep</p>
+</div>
+
+<div class="content">
+<label for="pc">Postcode</label>
+<input id="pc" type="text" placeholder="Bijv. 24000" maxlength="5">
+
+<label for="job">Beroep</label>
+<select id="job">
+<option value="">— Kies activiteit —</option>
+<optgroup label="Bouw & Ambacht">
+<option value="algemeen_bouw">Algemene bouw</option>
+<option value="loodgieter">Loodgieter</option>
+<option value="elektricien">Elektricien</option>
+<option value="schilder">Schilder</option>
+<option value="timmerman">Timmerman</option>
+</optgroup>
+<optgroup label="Horeca & Toerisme">
+<option value="gite">Gîte / verhuur</option>
+<option value="chambre_hotes">Chambre d’hôtes</option>
+<option value="restaurant">Restaurant</option>
+<option value="foodtruck">Foodtruck</option>
+</optgroup>
+<optgroup label="Diensten">
+<option value="consultant">Consultant / coach</option>
+<option value="web_it">IT / webdiensten</option>
+<option value="schoonmaak">Schoonmaak</option>
+<option value="fotograaf">Fotograaf</option>
+</optgroup>
+</select>
+
+<button id="btn">Zoek instanties</button>
+<div id="error"></div>
+</div>
+
+<div id="result">
+<p><strong>Locatie:</strong> <span id="city">–</span> (<span id="dept">–</span>)</p>
+<div id="list"></div>
+<a class="footer-link" href="https://formalites.entreprises.gouv.fr/" target="_blank" rel="noopener">
+Ga naar Guichet Unique →
+</a>
+</div>
+</section>
+
+</main>
+
+<script>
+(function(){
+const rules = {
+  algemeen_bouw:[
+    {n:"CMA",t:"Inschrijving Chambre de Métiers"},
+    {n:"Verzekering",t:"Décennale verplicht"}
+  ],
+  loodgieter:[
+    {n:"CMA",t:"Ambachtelijke registratie"},
+    {n:"Verzekering",t:"Décennale verplicht"}
+  ],
+  elektricien:[
+    {n:"CMA",t:"Ambachtelijke registratie"},
+    {n:"CONSUEL",t:"Keuring elektrische installatie"}
+  ],
+  schilder:[{n:"CMA",t:"Ambachtelijke registratie"}],
+  timmerman:[{n:"CMA",t:"Ambachtelijke registratie"}],
+  gite:[
+    {n:"Mairie",t:"Aanmelding verhuur"},
+    {n:"Belasting",t:"LMNP / inkomstenbelasting"}
+  ],
+  chambre_hotes:[
+    {n:"Mairie",t:"Verplichte melding"},
+    {n:"CCI / CMA",t:"Afhankelijk van activiteit"}
+  ],
+  restaurant:[
+    {n:"CCI",t:"Commerciële inschrijving"},
+    {n:"Mairie",t:"Drank- en exploitatievergunning"}
+  ],
+  foodtruck:[
+    {n:"CCI / CMA",t:"Afhankelijk van bereiding"},
+    {n:"Mairie",t:"Standplaatsvergunning"}
+  ],
+  consultant:[{n:"URSSAF",t:"Vrij beroep (BNC)"}],
+  web_it:[{n:"URSSAF",t:"Vrij beroep"}],
+  schoonmaak:[{n:"CMA",t:"Ambachtelijke registratie"}],
+  fotograaf:[
+    {n:"CMA",t:"Ambachtelijk"},
+    {n:"URSSAF",t:"Artistiek regime mogelijk"}
+  ]
+};
+
+const btn=document.getElementById('btn');
+const err=document.getElementById('error');
+const res=document.getElementById('result');
+
+btn.onclick=function(){
+  err.style.display='none';
+  res.style.display='none';
+
+  const pc=document.getElementById('pc').value.trim();
+  const job=document.getElementById('job').value;
+
+  if(!/^\d{5}$/.test(pc)){
+    err.textContent='Vul een geldige postcode in.';
+    err.style.display='block';
+    return;
+  }
+  if(!job){
+    err.textContent='Kies een beroep.';
+    err.style.display='block';
+    return;
+  }
+
+  fetch('https://api-adresse.data.gouv.fr/search/?q='+pc+'&type=municipality&limit=1')
+    .then(r=>r.json())
+    .then(d=>{
+      if(!d.features.length) throw 1;
+      const p=d.features[0].properties;
+      document.getElementById('city').textContent=p.city;
+      document.getElementById('dept').textContent=p.context;
+
+      let html='';
+      (rules[job]||[]).forEach(r=>{
+        html+='<div class="box"><strong>'+r.n+'</strong><br>'+r.t+'</div>';
+      });
+      document.getElementById('list').innerHTML=html||'Geen specifieke verplichtingen gevonden.';
+      res.style.display='block';
+    })
+    .catch(()=>{
+      err.textContent='Postcode niet gevonden.';
+      err.style.display='block';
+    });
+};
+})();
+</script>
+
+</body>
+</html>
