@@ -233,7 +233,7 @@ button.main-btn:hover { opacity: 0.9; }
       
       <div style="margin-top:20px; text-align:center;">
         <a href="https://formalites.entreprises.gouv.fr/" target="_blank" class="guichet-link">
-           Naar Guichet Unique (INPI) &rarr;
+            Naar Guichet Unique (INPI) &rarr;
         </a>
         <div style="font-size:12px; margin-top:5px; color:#888;">Het officiële nationale registratieportaal.</div>
       </div>
@@ -338,6 +338,20 @@ button.main-btn:hover { opacity: 0.9; }
   var resList = document.getElementById('res-list');
   var resTips = document.getElementById('res-tips');
 
+  // --- AUTOMATISCH INVULLEN VANUIT URL ---
+  function checkUrlParams() {
+    var params = new URLSearchParams(window.location.search);
+    var jobParam = params.get('beroep'); // zoekt naar ?beroep=...
+    
+    if (jobParam) {
+      // Check of de waarde in de selectlijst bestaat
+      var optionExists = [...inpJob.options].some(o => o.value === jobParam);
+      if (optionExists) {
+        inpJob.value = jobParam;
+      }
+    }
+  }
+
   // --- LOGICA ---
   btn.addEventListener('click', function() {
     errBox.style.display = 'none';
@@ -420,6 +434,9 @@ button.main-btn:hover { opacity: 0.9; }
 
     resArea.style.display = 'block';
     resetBtn();
+    
+    // Smooth scroll naar resultaat
+    resArea.scrollIntoView({ behavior: 'smooth' });
   }
 
   function showError(msg) {
@@ -432,6 +449,9 @@ button.main-btn:hover { opacity: 0.9; }
     btn.innerHTML = 'ZOEK CONTACTGEGEVENS';
     btn.style.opacity = '1';
   }
+
+  // Initialisatie
+  checkUrlParams();
 
 })();
 </script>
