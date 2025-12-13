@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Ondernemen in Frankrijk – registratiecheck per beroep en locatie</title>
-<meta name="description" content="Controleer per beroep en postcode in Frankrijk welke instanties verplicht zijn. Praktische registratiecheck voor ondernemers, met focus op bouw, diensten en toerisme.">
+<title>Ondernemen in Frankrijk – KvK / Chambre vinder per beroep en locatie</title>
+<meta name="description" content="Vind per beroep en postcode in Frankrijk de juiste instanties: CMA, CCI, URSSAF, mairie en verzekeringen. Praktische KvK- en Chambre-vinder.">
 
 <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@400;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
 
@@ -24,8 +24,8 @@ button{width:100%;background:#800000;color:#fff;border:none;padding:14px;font-fa
 button:hover{opacity:.9}
 #error{display:none;background:#ffecec;color:#a00;padding:10px;margin-top:10px;border-radius:4px}
 #result{display:none;background:#fffce6;padding:20px;border-top:1px solid #eee}
-.box{background:#fff;border:1px solid #eaddb6;padding:12px;margin-bottom:8px;border-left:4px solid #800000}
-.footer-link{display:block;margin-top:20px;text-align:center;font-weight:700;color:#800000}
+.box{background:#fff;border:1px solid #eaddb6;padding:12px;margin-bottom:10px;border-left:4px solid #800000}
+.box a{color:#800000;font-weight:700;text-decoration:none}
 .small{font-size:13px;opacity:.85;margin-top:10px}
 </style>
 </head>
@@ -34,10 +34,11 @@ button:hover{opacity:.9}
 <main>
 
 <section class="intro">
-<h1>Ondernemen in Frankrijk: welke instanties zijn verplicht?</h1>
+<h1>Ondernemen in Frankrijk: KvK / Chambre vinder</h1>
 <p>
-Controleer per postcode en beroep welke registraties, verzekeringen en meldingen in Frankrijk
-gebruikelijk zijn. De uitkomst is indicatief en gebaseerd op gangbare praktijk.
+Deze tool helpt u per <strong>beroep</strong> en <strong>postcode</strong> bij het vinden van de juiste
+Franse instanties (CMA, CCI, URSSAF, gemeente).
+U wordt steeds doorverwezen naar de <em>officiële ingang</em> van de bevoegde instantie.
 </p>
 </section>
 
@@ -49,42 +50,43 @@ gebruikelijk zijn. De uitkomst is indicatief en gebaseerd op gangbare praktijk.
 
 <div class="content">
 <label for="pc">Postcode</label>
-<input id="pc" type="text" placeholder="Bijv. 62170" maxlength="5" inputmode="numeric">
+<input id="pc" type="text" placeholder="Bijv. 24000" maxlength="5" inputmode="numeric">
 
 <label for="job">Beroep</label>
 <select id="job">
 <option value="">— Kies activiteit —</option>
 
-<optgroup label="Bouw – Second œuvre">
+<optgroup label="Bouw & Ambacht">
 <option value="schilder">Schilder</option>
 <option value="loodgieter">Loodgieter</option>
 <option value="elektricien">Elektricien</option>
 <option value="timmerman">Timmerman / menuisier</option>
+<option value="metselaar">Metselaar (gros œuvre)</option>
 </optgroup>
 
-<optgroup label="Bouw – Gros œuvre">
-<option value="metselaar">Metselaar / gros œuvre</option>
+<optgroup label="Horeca & Toerisme">
+<option value="restaurant">Restaurant</option>
+<option value="foodtruck">Foodtruck</option>
+<option value="gite">Gîte / verhuur</option>
+<option value="chambre">Chambre d’hôtes</option>
 </optgroup>
 
-<optgroup label="Diensten">
+<optgroup label="Diensten & Vrije beroepen">
 <option value="consultant">Consultant / coach</option>
 <option value="web_it">IT / webdiensten</option>
+<option value="fotograaf">Fotograaf</option>
 <option value="schoonmaak">Schoonmaak</option>
 </optgroup>
-
 </select>
 
 <button id="btn" type="button">Zoek instanties</button>
 <div id="error"></div>
-<div class="small">Let op: sommige postcodes horen bij meerdere gemeenten.</div>
+<div class="small">Sommige postcodes horen bij meerdere gemeenten.</div>
 </div>
 
 <div id="result">
 <p><strong>Locatie:</strong> <span id="city">–</span></p>
 <div id="list"></div>
-<a class="footer-link" href="https://formalites.entreprises.gouv.fr/" target="_blank" rel="noopener">
-Ga naar Guichet Unique →
-</a>
 <p class="small">
 Indicatief overzicht. Lokale autoriteiten of opdrachtgevers kunnen aanvullende eisen stellen.
 </p>
@@ -96,42 +98,30 @@ Indicatief overzicht. Lokale autoriteiten of opdrachtgevers kunnen aanvullende e
 <script>
 (function(){
 
+const INST = {
+  CMA:{name:"Chambre de Métiers et de l’Artisanat",link:"https://www.cma-france.fr/reseau-cma"},
+  CCI:{name:"Chambre de Commerce et d’Industrie",link:"https://www.cci.fr/web/trouver-sa-cci"},
+  URSSAF:{name:"URSSAF",link:"https://www.urssaf.fr/portail/home/contact/contacts-regionaux.html"},
+  MAIRIE:{name:"Mairie (gemeente)",link:"https://www.service-public.fr/particuliers/vosdroits/N203"},
+  PREF:{name:"Préfecture",link:"https://www.interieur.gouv.fr/Contact/Prefectures"},
+  SP:{name:"Service-Public",link:"https://www.service-public.fr/professionnels-entreprises"},
+  GU:{name:"Guichet Unique ondernemingen",link:"https://formalites.entreprises.gouv.fr"}
+};
+
 const rules = {
-  schilder:[
-    {n:"Registratie",t:"Inschrijving bij CMA (artisan). Auto-entrepreneur of société mogelijk."},
-    {n:"Verzekering",t:"Assurance décennale vereist bij bouwkundig werk. Attestation vóór start werk."},
-    {n:"Aanvullend",t:"Activiteitenomschrijving moet overeenkomen met uitgevoerde werkzaamheden."}
-  ],
-  loodgieter:[
-    {n:"Registratie",t:"Inschrijving bij CMA (artisan)."},
-    {n:"Verzekering",t:"Assurance décennale verplicht bij installatiewerkzaamheden."},
-    {n:"Aanvullend",t:"Werkzaamheden moeten gedekt zijn door de verzekering."}
-  ],
-  elektricien:[
-    {n:"Registratie",t:"Inschrijving bij CMA (artisan)."},
-    {n:"Verzekering",t:"Assurance décennale bij elektrische installaties in gebouwen."},
-    {n:"Aanvullend",t:"CONSUEL-keuring kan vereist zijn bij nieuwe installaties."}
-  ],
-  timmerman:[
-    {n:"Registratie",t:"Inschrijving bij CMA (artisan)."},
-    {n:"Verzekering",t:"Décennale vereist bij vast bouwkundig werk."},
-    {n:"Aanvullend",t:"Onderscheid tussen afwerking en dragend werk is relevant."}
-  ],
-  metselaar:[
-    {n:"Registratie",t:"Inschrijving bij CMA (artisan)."},
-    {n:"Verzekering",t:"Assurance décennale verplicht (gros œuvre)."},
-    {n:"Aanvullend",t:"Zonder geldige verzekering mag geen werk worden uitgevoerd."}
-  ],
-  consultant:[
-    {n:"Registratie",t:"URSSAF – vrij beroep (BNC)."}
-  ],
-  web_it:[
-    {n:"Registratie",t:"URSSAF – vrij beroep."}
-  ],
-  schoonmaak:[
-    {n:"Registratie",t:"Inschrijving bij CMA (artisan)."},
-    {n:"Verzekering",t:"Aansprakelijkheidsverzekering sterk aanbevolen."}
-  ]
+  schilder:["CMA","SP","GU"],
+  loodgieter:["CMA","SP","GU"],
+  elektricien:["CMA","SP","GU"],
+  timmerman:["CMA","SP","GU"],
+  metselaar:["CMA","SP","GU"],
+  restaurant:["CCI","MAIRIE","GU"],
+  foodtruck:["CCI","MAIRIE","GU"],
+  gite:["MAIRIE","SP"],
+  chambre:["MAIRIE","CCI"],
+  consultant:["URSSAF","GU"],
+  web_it:["URSSAF","GU"],
+  fotograaf:["URSSAF","CMA"],
+  schoonmaak:["CMA","GU"]
 };
 
 const btn=document.getElementById('btn');
@@ -164,23 +154,23 @@ btn.onclick=function(){
       const cities=list.map(c=>c.nom);
       const dept=list[0].codeDepartement;
 
-      let cityText='';
-      if(cities.length===1){
-        cityText=cities[0]+' ('+dept+')';
-      }else{
-        cityText='Meerdere gemeenten ('+pc+'): '+cities.slice(0,6).join(', ');
-        if(cities.length>6) cityText+=' …';
-        cityText+=' ('+dept+')';
-      }
+      let cityText=cities.length===1
+        ? cities[0]+' ('+dept+')'
+        : 'Meerdere gemeenten ('+pc+'): '+cities.slice(0,6).join(', ')+' ('+dept+')';
 
       document.getElementById('city').textContent=cityText;
 
       let html='';
-      (rules[job]||[]).forEach(r=>{
-        html+='<div class="box"><strong>'+r.n+'</strong><br>'+r.t+'</div>';
+      rules[job].forEach(k=>{
+        const i=INST[k];
+        html+=`<div class="box">
+          <strong>${i.name}</strong><br>
+          <a href="${i.link}" target="_blank" rel="noopener">Ga naar officiële contactpagina →</a>
+        </div>`;
       });
-      document.getElementById('list').innerHTML=html;
+
       res.style.display='block';
+      document.getElementById('list').innerHTML=html;
     })
     .catch(()=>{
       err.textContent='Postcode niet gevonden.';
