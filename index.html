@@ -17,7 +17,7 @@ body {
   font-family: 'Mulish', sans-serif;
   background-color: #f9f9f9;
   color: #333;
-  line-height: 1.8em; /* Ruime regelafstand conform instructie */
+  line-height: 1.8em;
 }
 
 main {
@@ -37,7 +37,8 @@ h1 { font-size: 28px; margin-bottom: 15px; }
 h2 { font-size: 22px; }
 h3 { font-size: 18px; margin-bottom: 10px; }
 
-a { text-decoration: none; transition: 0.2s; }
+a { text-decoration: none; transition: 0.2s; color: #800000; font-weight: 600; }
+a:hover { text-decoration: underline; }
 
 /* --- CONTAINERS --- */
 .card {
@@ -137,15 +138,16 @@ button.main-btn:hover { opacity: 0.9; }
   margin-top: 12px;
   padding: 10px 15px;
   background-color: #f4f4f4;
-  color: #333;
+  color: #333 !important; /* Forceer kleur */
   font-size: 14px;
   font-weight: 700;
   border-radius: 4px;
   border: 1px solid #ddd;
+  text-decoration: none !important;
 }
 .contact-btn:hover {
   background-color: #800000;
-  color: #fff;
+  color: #fff !important;
   border-color: #800000;
 }
 
@@ -156,22 +158,25 @@ button.main-btn:hover { opacity: 0.9; }
   font-size: 15px;
   color: #444;
   margin-top: 25px;
-  border: 1px dashed #800000;
+  border-left: 5px solid #d9534f; /* Opvallende rode rand voor tips */
+  border-top: 1px solid #eee;
+  border-right: 1px solid #eee;
+  border-bottom: 1px solid #eee;
   line-height: 1.6em;
 }
 
 /* CTA Onderaan (Guichet) */
 .cta-bottom-container {
-  margin-top: 30px; 
+  margin-top: 40px; 
   text-align: center;
-  padding-top: 20px;
+  padding-top: 25px;
   border-top: 1px solid #eaddb6;
 }
 
 .guichet-link {
   background-color: #800000;
-  color: #ffffff;
-  padding: 15px 25px;
+  color: #ffffff !important;
+  padding: 15px 30px;
   text-decoration: none;
   font-family: 'Poppins', sans-serif;
   font-weight: 600;
@@ -218,73 +223,54 @@ button.main-btn:hover { opacity: 0.9; }
         <select id="inp-job">
           <option value="">-- Maak een keuze --</option>
           
-          <optgroup label="Horeca & Voeding">
-            <option value="bediening">Bediening / Ober</option>
-            <option value="kok">Kok (Cuisinier)</option>
-            <option value="wijnboer">Wijnboer / Vigneron</option>
-          </optgroup>
-
-          <optgroup label="Toerisme & Verblijf">
-            <option value="gite">Gîte-eigenaar</option>
-            <option value="camping">Camping beheerder</option>
+          <optgroup label="Artsen & Specialisten">
+            <option value="dierenarts">Dierenarts</option>
+            <option value="arts">Huisarts</option>
+            <option value="tandarts">Tandarts</option>
           </optgroup>
 
           <optgroup label="Bouw & Techniek">
-            <option value="elektricien">Elektricien</option>
-            <option value="loodgieter">Loodgieter</option>
-            <option value="timmerman">Timmerman (Charpentier/Menuisier)</option>
-            <option value="schilder">Schilder</option>
-            <option value="metselaar">Metselaar (Maçon)</option>
-            <option value="tegelzetter">Tegelzetter (Carreleur)</option>
             <option value="architect">Architect</option>
+            <option value="elektricien">Elektricien</option>
             <option value="interieur">Interieurontwerper</option>
-          </optgroup>
-
-          <optgroup label="Groen & Agrarisch">
-            <option value="hovenier">Hovenier / Tuinman</option>
-            <option value="groente">Groenteteler / Maraîcher</option>
-            <option value="imker">Imker (Apiculteur)</option>
-            <option value="boom">Boomverzorger</option>
-            <option value="dierenpension">Dierenpensionhouder</option>
-          </optgroup>
-
-          <optgroup label="Zorg & Paramedisch">
-            <option value="verpleeg">Verpleegkundige</option>
-            <option value="fysio">Fysiotherapeut</option>
-            <option value="psych">Psycholoog</option>
-            <option value="thuiszorg">Thuiszorg / Auxiliaire de vie</option>
-            <option value="osteo">Osteopaat</option>
-            <option value="pedicure">Pedicure-Podologue</option>
-          </optgroup>
-
-          <optgroup label="Artsen & Specialisten">
-            <option value="arts">Huisarts</option>
-            <option value="tandarts">Tandarts</option>
-            <option value="dierenarts">Dierenarts</option>
+            <option value="loodgieter">Loodgieter</option>
+            <option value="metselaar">Metselaar (Maçon)</option>
+            <option value="schilder">Schilder</option>
+            <option value="tegelzetter">Tegelzetter (Carreleur)</option>
+            <option value="timmerman">Timmerman (Charpentier)</option>
           </optgroup>
 
           <optgroup label="Dienstverlening">
             <option value="admin">Administratief assistent / VA</option>
             <option value="coach">Coach / Consultant</option>
             <option value="klus">Klusjesman (Multi-service)</option>
+            <option value="leraar">Leraar privé / Bijles</option>
             <option value="makelaar">Makelaar (Agent Immobilier)</option>
             <option value="vertaler">Vertaler</option>
-            <option value="leraar">Leraar privé / Bijles</option>
+          </optgroup>
+
+          <optgroup label="Groen & Agrarisch">
+            <option value="boom">Boomverzorger</option>
+            <option value="dierenpension">Dierenpensionhouder</option>
+            <option value="groente">Groenteteler / Maraîcher</option>
+            <option value="hovenier">Hovenier / Tuinman</option>
+            <option value="imker">Imker (Apiculteur)</option>
+          </optgroup>
+
+          <optgroup label="Horeca & Voeding">
+            <option value="bediening">Bediening / Ober</option>
+            <option value="kok">Kok (Cuisinier)</option>
+            <option value="wijnboer">Wijnboer / Vigneron</option>
+          </optgroup>
+          
+          <optgroup label="IT, Web & Digitaal">
+            <option value="grafisch">Grafisch ontwerper</option>
+            <option value="web">Webdeveloper</option>
           </optgroup>
 
           <optgroup label="Juridisch & Financieel">
-            <option value="advocaat">Advocaat</option>
             <option value="accountant">Accountant (Expert-Comptable)</option>
-          </optgroup>
-
-          <optgroup label="IT, Web & Digitaal">
-            <option value="web">Webdeveloper</option>
-            <option value="grafisch">Grafisch ontwerper</option>
-          </optgroup>
-
-          <optgroup label="Transport & Logistiek">
-            <option value="taxi">Taxichauffeur</option>
-            <option value="vtc">VTC chauffeur (Privé chauffeur)</option>
+            <option value="advocaat">Advocaat</option>
           </optgroup>
 
           <optgroup label="Kunst & Creatief">
@@ -293,10 +279,30 @@ button.main-btn:hover { opacity: 0.9; }
             <option value="schrijver">Schrijver / Auteur</option>
           </optgroup>
 
-          <optgroup label="Uiterlijke verzorging">
-            <option value="schoonheid">Schoonheidsspecialiste</option>
-            <option value="kapper">Kapper / Kapster</option>
+          <optgroup label="Toerisme & Verblijf">
+            <option value="camping">Camping beheerder</option>
+            <option value="gite">Gîte-eigenaar</option>
           </optgroup>
+
+          <optgroup label="Transport & Logistiek">
+            <option value="taxi">Taxichauffeur</option>
+            <option value="vtc">VTC chauffeur (Privé chauffeur)</option>
+          </optgroup>
+
+          <optgroup label="Uiterlijke verzorging">
+            <option value="kapper">Kapper / Kapster</option>
+            <option value="schoonheid">Schoonheidsspecialiste</option>
+          </optgroup>
+          
+          <optgroup label="Zorg & Paramedisch">
+            <option value="fysio">Fysiotherapeut</option>
+            <option value="osteo">Osteopaat</option>
+            <option value="pedicure">Pedicure-Podologue</option>
+            <option value="psych">Psycholoog</option>
+            <option value="thuiszorg">Thuiszorg / Auxiliaire de vie</option>
+            <option value="verpleeg">Verpleegkundige</option>
+          </optgroup>
+
         </select>
       </div>
 
@@ -374,71 +380,73 @@ button.main-btn:hover { opacity: 0.9; }
     }
   };
 
-  // Data: Regels & Tips per beroep (61 stuks)
+  // Data: Regels & Tips per beroep (VERRIJKT MET LINKS)
   var RULES = {
     // HORECA
-    bediening: { inst: ["CCI", "URSSAF"], tip: "Als freelancer in de bediening werkt u als dienstverlener (Prestation de Service)." },
-    kok: { inst: ["CMA"], tip: "Als zelfstandig kok die gerechten bereidt, is dit een ambacht (Artisan). HACCP diploma verplicht." },
-    wijnboer: { inst: ["CA"], tip: "Dit is een puur agrarische activiteit. Registratie verloopt via de Landbouwkamer." },
+    bediening: { inst: ["CCI", "URSSAF"], tip: "Als freelancer in de bediening werkt u meestal als dienstverlener (Prestation de Service)." },
+    kok: { inst: ["CMA"], tip: "Als u zelfstandig maaltijden bereidt, is dit een ambacht (Artisan). Een HACCP diploma is verplicht." },
+    wijnboer: { inst: ["CA"], tip: "Dit is een puur agrarische activiteit. Registratie verloopt via de Landbouwkamer (MSA)." },
     
     // TOERISME
-    gite: { inst: ["MAIRIE", "GRIFF"], tip: "Meld de gîte altijd aan bij de gemeente (Cerfa formulier). Classificatie is optioneel maar fiscaal voordelig." },
-    camping: { inst: ["CCI", "MAIRIE"], tip: "Strenge regels m.b.t. veiligheid, ERP-normen en bestemmingsplannen." },
+    gite: { inst: ["MAIRIE", "GRIFF"], tip: "Meld de gîte altijd aan bij de gemeente via het <a href='https://www.service-public.fr/particuliers/vosdroits/R14321' target='_blank'>Cerfa formulier</a>. Classificatie is fiscaal voordelig." },
+    camping: { inst: ["CCI", "MAIRIE"], tip: "Strenge regels m.b.t. veiligheid, ERP-normen en bestemmingsplannen. Neem contact op met de gemeente." },
     
     // BOUW (Artisanat - Diploma verplicht)
-    elektricien: { inst: ["CMA"], tip: "<strong>Streng gereguleerd:</strong> Vakdiploma verplicht. Installaties moeten gekeurd worden door CONSUEL." },
-    loodgieter: { inst: ["CMA"], tip: "<strong>Let op:</strong> Vakdiploma (CAP/BEP) of 3 jaar aantoonbare ervaring verplicht + Garantie Décennale." },
-    timmerman: { inst: ["CMA"], tip: "Ambachtelijk beroep. Garantie Décennale (10-jaren verzekering) is verplicht." },
-    schilder: { inst: ["CMA"], tip: "Garantie Décennale is vaak verplicht, ook voor schilderwerk. Inschrijving bij CMA." },
-    metselaar: { inst: ["CMA"], tip: "<strong>Let op:</strong> Zwaar gereguleerd. Diploma en verzekering zijn cruciaal." },
+    elektricien: { inst: ["CMA"], tip: "<strong>Streng gereguleerd:</strong> Vakdiploma verplicht. Installaties moeten gekeurd worden door <a href='https://www.consuel.com/' target='_blank'>CONSUEL</a>." },
+    loodgieter: { inst: ["CMA"], tip: "<strong>Let op:</strong> Vakdiploma (CAP/BEP) of 3 jaar ervaring verplicht + 10-jarige verzekering (Décennale)." },
+    timmerman: { inst: ["CMA"], tip: "Ambachtelijk beroep. Een Garantie Décennale (10-jaren verzekering) is wettelijk verplicht." },
+    schilder: { inst: ["CMA"], tip: "Garantie Décennale is vaak verplicht, ook voor schilderwerk. Inschrijving in het RM-register." },
+    metselaar: { inst: ["CMA"], tip: "<strong>Let op:</strong> Zwaar gereguleerd. Diploma en verzekering zijn cruciaal voor aansprakelijkheid." },
     tegelzetter: { inst: ["CMA"], tip: "Valt onder afbouw. Verzekeringsplicht geldt ook hier." },
-    architect: { inst: ["URSSAF"], tip: "Beschermd beroep. Inschrijving bij 'Ordre des Architectes' is verplicht." },
-    interieur: { inst: ["CMA", "URSSAF"], tip: "Als u structurele muren wijzigt: Architect nodig. Alleen decoratie: Vrij beroep of ambacht." },
+    
+    // ARCHITECT (Verrijkt met link)
+    architect: { inst: ["URSSAF"], tip: "Beschermd beroep. Inschrijving bij de <a href='https://www.architectes.org/' target='_blank'>Ordre des Architectes</a> is verplicht vóór u mag starten." },
+    interieur: { inst: ["CMA", "URSSAF"], tip: "Let op: Als u structurele muren wijzigt is een Architect nodig. Alleen decoratie? Dan vrij beroep." },
     
     // GROEN
-    hovenier: { inst: ["CA", "URSSAF"], tip: "Onderhoud (Service à la personne) gaat via URSSAF. Aanleg (Création) via MSA/Agri." },
-    groente: { inst: ["CA"], tip: "Agrarische activiteit (MSA). Let op grondrechten." },
-    imker: { inst: ["CA"], tip: "Bij verkoop van honing bent u agrarisch ondernemer. Aangifte aantal korven verplicht." },
-    boom: { inst: ["CA"], tip: "Boomverzorging valt vaak onder de agrarische sector (MSA)." },
-    dierenpension: { inst: ["CCI", "PREF"], tip: "Certificaat ACACED (kennis huisdieren) is verplicht, evenals inspectie DDPP." },
+    hovenier: { inst: ["CA", "URSSAF"], tip: "Onderhoud (Service à la personne) gaat via URSSAF. Aanleg (Création) is agrarisch via MSA." },
+    groente: { inst: ["CA"], tip: "Agrarische activiteit (MSA). Let op lokale grondrechten." },
+    imker: { inst: ["CA"], tip: "Bij verkoop van honing bent u agrarisch ondernemer. <a href='https://agriculture.gouv.fr/declarer-des-ruches' target='_blank'>Jaarlijkse aangifte</a> bijenkorven verplicht." },
+    boom: { inst: ["CA"], tip: "Boomverzorging valt vaak onder de agrarische sector (MSA/Jardinage)." },
+    dierenpension: { inst: ["CCI", "PREF"], tip: "Certificaat <a href='https://educateur-canin.com/acaced/' target='_blank'>ACACED</a> (kennis huisdieren) is verplicht, evenals inspectie door de DDPP." },
     
     // ZORG
-    verpleeg: { inst: ["ARS", "URSSAF"], tip: "Diploma moet erkend worden in Frankrijk. Registratie in ADELI/RPPS register." },
-    fysio: { inst: ["ARS", "URSSAF"], tip: "Erkenning diploma via 'Ordre des Masseurs-Kinésithérapeutes' verplicht." },
-    psych: { inst: ["URSSAF", "ARS"], tip: "Titel is beschermd. Diploma moet geregistreerd worden bij ARS." },
-    thuiszorg: { inst: ["URSSAF", "CMA"], tip: "Medische zorg alleen door verplegers. Huishoudelijke hulp is 'Service à la personne'." },
-    osteo: { inst: ["URSSAF", "ARS"], tip: "Gebruik van de titel is gereguleerd (erkend diploma nodig)." },
-    pedicure: { inst: ["CMA", "URSSAF"], tip: "Medisch pedicure vereist diploma. Cosmetisch valt onder schoonheidsspecialiste." },
+    verpleeg: { inst: ["ARS", "URSSAF"], tip: "Diploma moet erkend worden in Frankrijk. Registratie in het ADELI/RPPS register via de <a href='https://www.ordre-infirmiers.fr/' target='_blank'>Ordre National</a>." },
+    fysio: { inst: ["ARS", "URSSAF"], tip: "Erkenning diploma via <a href='https://www.ordremk.fr/' target='_blank'>Ordre des Masseurs-Kinésithérapeutes</a> is verplicht." },
+    psych: { inst: ["URSSAF", "ARS"], tip: "Titel is beschermd. Diploma moet geregistreerd worden bij de ARS (ADELI nummer)." },
+    thuiszorg: { inst: ["URSSAF", "CMA"], tip: "Medische zorg mag alleen door verplegers. Huishoudelijke hulp is 'Service à la personne'." },
+    osteo: { inst: ["URSSAF", "ARS"], tip: "Gebruik van de titel is gereguleerd. U heeft een erkend diploma nodig." },
+    pedicure: { inst: ["CMA", "URSSAF"], tip: "Medisch pedicure (Pédicure-Podologue) vereist diploma en inschrijving <a href='https://www.onpp.fr/' target='_blank'>ONPP</a>." },
     
     // ARTSEN
-    arts: { inst: ["ARS", "URSSAF"], tip: "Inschrijving bij 'Ordre des Médecins' strikt noodzakelijk." },
-    tandarts: { inst: ["ARS", "URSSAF"], tip: "Inschrijving bij 'Ordre des Chirurgiens-Dentistes' verplicht." },
-    dierenarts: { inst: ["ARS", "URSSAF"], tip: "Inschrijving bij 'Ordre des Vétérinaires'. Ook agrarische aspecten." },
+    arts: { inst: ["ARS", "URSSAF"], tip: "Inschrijving bij de <a href='https://www.conseil-national.medecin.fr/' target='_blank'>Ordre des Médecins</a> is strikt noodzakelijk." },
+    tandarts: { inst: ["ARS", "URSSAF"], tip: "Inschrijving bij de <a href='https://www.ordre-chirurgiens-dentistes.fr/' target='_blank'>Ordre des Chirurgiens-Dentistes</a> verplicht." },
+    dierenarts: { inst: ["ARS", "URSSAF"], tip: "Inschrijving bij de <a href='https://www.veterinaire.fr/' target='_blank'>Ordre des Vétérinaires</a>. Valt deels onder agrarisch recht." },
     
     // DIENSTEN
-    admin: { inst: ["URSSAF"], tip: "Vrij beroep (Profession Libérale). Eenvoudige start via Auto-Entrepreneur." },
-    coach: { inst: ["URSSAF"], tip: "Vrij beroep. Geen specifiek diploma vereist, wel aan te raden." },
+    admin: { inst: ["URSSAF"], tip: "Vrij beroep (Profession Libérale). Eenvoudige start en administratie via URSSAF." },
+    coach: { inst: ["URSSAF"], tip: "Vrij beroep. Geen specifiek diploma vereist, wel sterk aan te raden voor verzekering." },
     klus: { inst: ["CMA"], tip: " 'Homme toutes mains' mag alleen kleine klusjes doen (geen bouw/elektra!)." },
-    makelaar: { inst: ["CCI", "PREF"], tip: "<strong>Let op:</strong> Carte Professionnelle (Carte T) verplicht. Zonder kaart alleen werken als 'agent commercial'." },
+    makelaar: { inst: ["CCI", "PREF"], tip: "<strong>Strenge eisen:</strong> 'Carte T' nodig. Zonder kaart kunt u alleen werken als 'agent commercial' voor een bestaand kantoor." },
     vertaler: { inst: ["URSSAF"], tip: "Intellectueel vrij beroep. Geen diploma-eisen voor vestiging." },
-    leraar: { inst: ["URSSAF"], tip: "Bijles geven is een vrij beroep. Controleer 'Service à la personne' voordelen." },
+    leraar: { inst: ["URSSAF"], tip: "Bijles geven is een vrij beroep. Controleer 'Service à la personne' voor belastingvoordeel klanten." },
     
     // JURIDISCH
-    advocaat: { inst: ["URSSAF"], tip: "Toelating tot de Franse balie (Barreau) is vereist." },
-    accountant: { inst: ["URSSAF"], tip: "Expert-comptable is een beschermd beroep. Inschrijving bij de Orde verplicht." },
+    advocaat: { inst: ["URSSAF"], tip: "Toelating tot de Franse balie (Barreau) is vereist. Zie <a href='https://www.cnb.avocat.fr/' target='_blank'>CNB Avocat</a>." },
+    accountant: { inst: ["URSSAF"], tip: "Expert-comptable is beschermd. Inschrijving bij de <a href='https://www.experts-comptables.fr/' target='_blank'>Ordre</a> verplicht." },
     
     // IT
     web: { inst: ["URSSAF", "CMA"], tip: "Puur coderen is vrij beroep. Grafisch/Design kan onder CMA vallen." },
-    grafisch: { inst: ["CMA", "URSSAF"], tip: "Kan ambachtelijk zijn (CMA) of artistiek (Maison des Artistes - ander regime)." },
+    grafisch: { inst: ["CMA", "URSSAF"], tip: "Kan ambachtelijk zijn (CMA) of artistiek (<a href='https://www.secu-artistes-auteurs.fr/' target='_blank'>Artistes Auteurs</a>)." },
     
     // TRANSPORT
     taxi: { inst: ["CMA", "PREF"], tip: "Speciale vergunning (ADS) en beroepskaart nodig via de Préfecture." },
-    vtc: { inst: ["CMA", "PREF"], tip: "VTC-examen en registratie in het VTC-register verplicht." },
+    vtc: { inst: ["CMA", "PREF"], tip: "VTC-examen en registratie in het <a href='https://registre-vtc.developpement-durable.gouv.fr/' target='_blank'>VTC-register</a> verplicht." },
     
     // KUNST
-    fotograaf: { inst: ["CMA", "URSSAF"], tip: "Bruidsfotografie is ambacht (CMA). Kunstfotografie is artistiek." },
+    fotograaf: { inst: ["CMA", "URSSAF"], tip: "Bruidsfotografie is ambacht (CMA). Kunstfotografie is artistiek (Artistes Auteurs)." },
     keramist: { inst: ["CMA"], tip: "Ambachtelijk beroep (Métier d'Art). Inschrijving CMA." },
-    schrijver: { inst: ["URSSAF"], tip: "Auteursrechten vallen vaak onder een specifiek artiesten-regime." },
+    schrijver: { inst: ["URSSAF"], tip: "Auteursrechten vallen vaak onder het specifieke <a href='https://www.secu-artistes-auteurs.fr/' target='_blank'>Artistes Auteurs</a> regime." },
     
     // BEAUTY
     schoonheid: { inst: ["CMA"], tip: "<strong>Gereguleerd:</strong> Diploma (CAP/BP) verplicht voor alle huidbehandelingen." },
@@ -513,6 +521,7 @@ button.main-btn:hover { opacity: 0.9; }
         if (info) {
           // Zoekterm logica
           var zoekLocatie = stad;
+          // Grote instanties zitten vaak per departement (hoofdstad)
           if (code === 'CMA' || code === 'CCI' || code === 'CA' || code === 'PREF' || code === 'ARS') {
              zoekLocatie = "departement " + dept;
           }
@@ -535,7 +544,8 @@ button.main-btn:hover { opacity: 0.9; }
     resList.innerHTML = html;
 
     if (ruleSet && ruleSet.tip) {
-      resTips.innerHTML = "💡 " + ruleSet.tip;
+      // Tip is nu innerHTML (zodat links werken)
+      resTips.innerHTML = "<strong>💡 Belangrijk:</strong> " + ruleSet.tip;
       resTips.style.display = 'block';
     }
 
