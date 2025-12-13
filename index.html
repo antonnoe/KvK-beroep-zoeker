@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Checklist Ondernemen Frankrijk – Instanties & Eisen</title>
-<meta name="description" content="Vind direct de juiste Franse instanties en vereisten voor uw bedrijf in Frankrijk. Check per beroep en postcode.">
+<title>Checklist Ondernemen Frankrijk – Instanties & Contact</title>
+<meta name="description" content="Vind direct de juiste Franse instanties en contactgegevens voor uw bedrijf in Frankrijk. Check per beroep en postcode.">
 
 <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@400;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
 
@@ -17,7 +17,7 @@ body {
   font-family: 'Mulish', sans-serif;
   background-color: #f9f9f9;
   color: #333;
-  line-height: 1.8em; /* Ruime regelafstand conform instructies */
+  line-height: 1.6em;
 }
 
 main {
@@ -36,8 +36,7 @@ h1, h2, h3 {
 h1 { font-size: 26px; margin-bottom: 10px; }
 h2 { font-size: 20px; }
 
-a { color: #800000; font-weight: bold; text-decoration: none; border-bottom: 1px solid transparent; transition: 0.2s; }
-a:hover { border-bottom-color: #800000; }
+a { text-decoration: none; transition: 0.2s; }
 
 /* --- CONTAINERS --- */
 .card {
@@ -55,7 +54,6 @@ a:hover { border-bottom-color: #800000; }
   padding: 25px;
   text-align: center;
 }
-
 .header-bg h2 { color: #fff; margin: 0; }
 .header-bg p { color: rgba(255,255,255,0.9); margin: 5px 0 0; font-size: 14px; }
 
@@ -81,7 +79,7 @@ input, select {
   background: #fff;
 }
 
-button {
+button.main-btn {
   display: block;
   width: 100%;
   background-color: #800000;
@@ -96,8 +94,7 @@ button {
   cursor: pointer;
   transition: opacity 0.2s;
 }
-
-button:hover { opacity: 0.9; }
+button.main-btn:hover { opacity: 0.9; }
 
 /* --- MELDINGEN --- */
 #msg-error {
@@ -133,6 +130,24 @@ button:hover { opacity: 0.9; }
   border-left: 4px solid #800000;
 }
 
+/* Knop voor contactgegevens */
+.contact-btn {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 8px 12px;
+  background-color: #f4f4f4;
+  color: #333;
+  font-size: 13px;
+  font-weight: 700;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+}
+.contact-btn:hover {
+  background-color: #800000;
+  color: #fff;
+  border-color: #800000;
+}
+
 .tip-box {
   background: #fff;
   padding: 15px;
@@ -142,6 +157,14 @@ button:hover { opacity: 0.9; }
   margin-top: 20px;
   border: 1px dashed #999;
 }
+
+.guichet-link {
+  display: block;
+  text-align: center;
+  margin-top: 20px;
+  color: #800000; 
+  font-weight: bold;
+}
 </style>
 </head>
 <body>
@@ -150,7 +173,7 @@ button:hover { opacity: 0.9; }
   <div style="margin-bottom: 30px; text-align: center;">
     <h1>Starten in Frankrijk</h1>
     <p style="font-size: 18px; color: #555;">
-      Check direct welke instanties en verplichtingen gelden voor uw specifieke beroepsgroep en locatie.
+      Vind de lokale contactgegevens en verplichtingen voor uw bedrijf.
     </p>
   </div>
 
@@ -163,7 +186,7 @@ button:hover { opacity: 0.9; }
     <div class="content">
       <div style="margin-bottom: 10px;">
         <label for="inp-pc">Postcode (Frankrijk)</label>
-        <input type="text" id="inp-pc" placeholder="Bijv. 24000" maxlength="5" inputmode="numeric">
+        <input type="text" id="inp-pc" placeholder="Bijv. 62100" maxlength="5" inputmode="numeric">
       </div>
 
       <div style="margin-bottom: 10px;">
@@ -193,26 +216,26 @@ button:hover { opacity: 0.9; }
         </select>
       </div>
 
-      <button type="button" id="btn-search">Zoek Eisen & Loketten</button>
+      <button type="button" id="btn-search" class="main-btn">Zoek Contactgegevens</button>
       <div id="msg-error"></div>
     </div>
 
     <div id="results-area">
       <div class="res-header">
         <strong>Locatie:</strong> <span id="res-city" style="color:#800000;">...</span><br>
-        <span style="font-size:14px; color:#666;">(Gebaseerd op officiële GEO-data)</span>
+        <span style="font-size:14px; color:#666;">(Resultaten voor departement: <span id="res-dept-nr"></span>)</span>
       </div>
 
-      <h3 style="font-size:18px;">Vereiste Instanties:</h3>
+      <h3 style="font-size:18px;">Uw Lokale Instanties:</h3>
       <div id="res-list"></div>
 
       <div id="res-tips" class="tip-box" style="display:none;"></div>
       
       <div style="margin-top:20px; text-align:center;">
-        <a href="https://formalites.entreprises.gouv.fr/" target="_blank">
+        <a href="https://formalites.entreprises.gouv.fr/" target="_blank" class="guichet-link">
            Naar Guichet Unique (INPI) &rarr;
         </a>
-        <div style="font-size:12px; margin-top:5px; color:#888;">Het enige officiële registratieportaal.</div>
+        <div style="font-size:12px; margin-top:5px; color:#888;">Het officiële nationale registratieportaal.</div>
       </div>
     </div>
   </div>
@@ -222,61 +245,85 @@ button:hover { opacity: 0.9; }
 (function() {
   // --- CONFIGURATIE ---
   
-  // Data: Instanties
+  // Data: Instanties + Zoektermen voor Google Maps
   var INST = {
-    CMA:    { n: "CMA (Ambachtskamer)", t: "Verplichte registratie voor handarbeid/ambacht." },
-    CCI:    { n: "CCI (Kamer van Koophandel)", t: "Voor handelsactiviteiten en verkoop." },
-    URSSAF: { n: "URSSAF (Vrije beroepen)", t: "Uw loket voor sociale lasten (Intellectuele diensten)." },
-    MAIRIE: { n: "Mairie (Gemeente)", t: "Lokale melding of vergunning vereist." },
-    GRIFF:  { n: "Greffe du Tribunal", t: "Registratie handelsregister (via Guichet Unique)." },
-    PREF:   { n: "Préfecture", t: "Specifieke beroepskaarten of vergunningen." }
+    CMA: { 
+      n: "CMA (Chambre de Métiers)", 
+      t: "Ambachtskamer. Verplicht voor handwerk en ambacht.",
+      q: "Chambre de Métiers et de l'Artisanat" 
+    },
+    CCI: { 
+      n: "CCI (Kamer van Koophandel)", 
+      t: "Voor handelsactiviteiten en verkoop.",
+      q: "Chambre de Commerce et d'Industrie"
+    },
+    URSSAF: { 
+      n: "URSSAF", 
+      t: "Voor de inning van sociale lasten (Vrije beroepen).",
+      q: "URSSAF"
+    },
+    MAIRIE: { 
+      n: "Mairie (Gemeentehuis)", 
+      t: "Ga langs bij de lokale gemeente voor vergunningen.",
+      q: "Mairie" // Zoekt specifiek op stad
+    },
+    GRIFF: { 
+      n: "Greffe du Tribunal", 
+      t: "Handelsregister (via Guichet Unique).",
+      q: "Greffe du Tribunal de Commerce"
+    },
+    PREF: { 
+      n: "Préfecture", 
+      t: "Voor specifieke beroepskaarten of vergunningen.",
+      q: "Préfecture"
+    }
   };
 
   // Data: Regels & Tips per beroep
   var RULES = {
     bouw_alg: {
       inst: ["CMA", "GRIFF"],
-      tip: "<strong>Let op:</strong> De 10-jarige verzekering (Garantie Décennale) is wettelijk verplicht vóór de start van elke klus. Vraag ook naar de 'Carte BTP' voor toegang tot bouwplaatsen."
+      tip: "<strong>Let op:</strong> De 10-jarige verzekering (Garantie Décennale) is wettelijk verplicht vóór de start. Vraag ook naar de 'Carte BTP'."
     },
     loodgieter: {
       inst: ["CMA", "GRIFF"],
-      tip: "<strong>Vereiste:</strong> Vakdiploma (CAP/BEP) of 3 jaar aantoonbare ervaring is verplicht. Vergeet de 'Garantie Décennale' verzekering niet!"
+      tip: "<strong>Vereiste:</strong> Vakdiploma (CAP/BEP) of 3 jaar ervaring is verplicht + Garantie Décennale."
     },
     elektricien: {
       inst: ["CMA", "GRIFF"],
-      tip: "<strong>Vereiste:</strong> Vakdiploma verplicht. Installaties moeten vaak gekeurd worden door de CONSUEL. Garantie Décennale verplicht."
+      tip: "<strong>Vereiste:</strong> Vakdiploma verplicht. Installaties moeten gekeurd worden door de CONSUEL."
     },
     restaurant: {
       inst: ["CCI", "MAIRIE", "GRIFF"],
-      tip: "<strong>Training:</strong> U heeft een 'Permis d’Exploitation' (drankvergunning) en een HACCP (hygiëne) certificaat nodig."
+      tip: "<strong>Training:</strong> 'Permis d’Exploitation' (drankvergunning) en HACCP (hygiëne) verplicht."
     },
     foodtruck: {
       inst: ["CCI", "MAIRIE", "CMA"],
-      tip: "<strong>Standplaats:</strong> Vraag bij elke gemeente apart een vergunning aan voor openbare weggebruik. Als u zelf gerechten bereidt, is ook inschrijving bij CMA nodig."
+      tip: "<strong>Standplaats:</strong> Vraag bij de Mairie een vergunning voor openbare weggebruik."
     },
     gite: {
       inst: ["MAIRIE", "GRIFF"],
-      tip: "Meld de gîte aan bij de gemeente (Cerfa formulier). Voor belastingvoordeel kunt u classificatie ('Sterren') aanvragen."
+      tip: "Meld de gîte aan bij de gemeente (Cerfa formulier). Classificatie aanvragen kan belastingvoordeel geven."
     },
     chambre: {
       inst: ["MAIRIE", "CCI"],
-      tip: "Max. 5 kamers en 15 personen. Ontbijt serveren is verplicht bij deze categorie."
+      tip: "Max. 5 kamers en 15 personen. Ontbijt serveren is verplicht."
     },
     consultant: {
       inst: ["URSSAF"],
-      tip: "U valt meestal onder de 'Profession Libérale'. Let op: minder aftrekposten, maar lagere sociale lasten in het begin."
+      tip: "U valt meestal onder de 'Profession Libérale' (BNC). Eenvoudige administratie via URSSAF."
     },
     web_it: {
       inst: ["URSSAF"],
-      tip: "Verkoop van diensten. Als u ook hardware verkoopt, komt de CCI erbij kijken."
+      tip: "Verkoop van diensten (Prestation de Service). Hardware verkoop vereist ook CCI."
     },
     makelaar: {
       inst: ["CCI", "PREF"],
-      tip: "<strong>Strenge eisen:</strong> U heeft een 'Carte Professionnelle' (Carte T) nodig. Zonder diploma of ervaring is zelfstandig starten lastig (kijk naar 'Agent Commercial' onder een bestaand kantoor)."
+      tip: "<strong>Strenge eisen:</strong> 'Carte Professionnelle' (Carte T) nodig via CCI/Préfecture."
     },
     schoonmaak: {
       inst: ["CMA", "GRIFF"],
-      tip: "Voor algemene schoonmaak is geen diploma vereist, tenzij u werkt met industriële processen of desinfectie."
+      tip: "Voor algemene schoonmaak is vaak geen diploma vereist."
     }
   };
 
@@ -287,12 +334,12 @@ button:hover { opacity: 0.9; }
   var errBox = document.getElementById('msg-error');
   var resArea = document.getElementById('results-area');
   var resCity = document.getElementById('res-city');
+  var resDeptNr = document.getElementById('res-dept-nr');
   var resList = document.getElementById('res-list');
   var resTips = document.getElementById('res-tips');
 
   // --- LOGICA ---
   btn.addEventListener('click', function() {
-    // Reset UI
     errBox.style.display = 'none';
     resArea.style.display = 'none';
     resTips.style.display = 'none';
@@ -302,17 +349,16 @@ button:hover { opacity: 0.9; }
     var pc = inpPc.value.trim();
     var jobKey = inpJob.value;
 
-    // 1. Validatie
     if (!/^\d{5}$/.test(pc)) {
       showError("Voer een geldige Franse postcode in (5 cijfers).");
       return;
     }
     if (jobKey === "") {
-      showError("Kies een beroepsgroep uit de lijst.");
+      showError("Kies een beroepsgroep.");
       return;
     }
 
-    // 2. API Call (Locatie Check)
+    // API Call
     fetch('https://geo.api.gouv.fr/communes?codePostal=' + pc + '&fields=nom,codeDepartement')
       .then(function(r) { return r.json(); })
       .then(function(data) {
@@ -320,45 +366,53 @@ button:hover { opacity: 0.9; }
           throw new Error("Postcode onbekend");
         }
 
-        // Pak de eerste stad of toon 'Meerdere'
         var stadNaam = data[0].nom;
         var deptCode = data[0].codeDepartement;
         
         if (data.length > 1) {
-          stadNaam = data[0].nom + " (en " + (data.length - 1) + " omliggende)";
+          stadNaam = data[0].nom + " (en omliggende)";
         }
 
         toonResultaat(stadNaam, deptCode, jobKey);
       })
       .catch(function(e) {
         showError("Locatie niet gevonden. Controleer de postcode.");
+        console.error(e);
         resetBtn();
       });
   });
 
   function toonResultaat(stad, dept, jobKey) {
-    // Toon locatie
-    resCity.textContent = stad + " (Dept: " + dept + ")";
+    resCity.textContent = stad;
+    resDeptNr.textContent = dept;
 
-    // Haal regels op
     var ruleSet = RULES[jobKey];
     var html = "";
 
-    // Loop door instanties
     if (ruleSet && ruleSet.inst) {
       ruleSet.inst.forEach(function(code) {
         var info = INST[code];
         if (info) {
+          // Bouw zoekterm: "CCI department 62" of "Mairie [Stad]"
+          var zoekLocatie = (code === 'MAIRIE') ? stad : ("departement " + dept);
+          var mapsQuery = encodeURIComponent(info.q + " " + zoekLocatie);
+          var mapsLink = "https://www.google.fr/maps/search/" + mapsQuery;
+
           html += '<div class="res-block">';
           html += '<strong style="color:#800000; font-size:16px;">' + info.n + '</strong>';
-          html += '<div style="margin-top:5px; color:#444;">' + info.t + '</div>';
+          html += '<div style="margin-top:5px; margin-bottom:10px; color:#444;">' + info.t + '</div>';
+          
+          // Knop naar Maps/Adres
+          html += '<a href="' + mapsLink + '" target="_blank" class="contact-btn">';
+          html += '📍 Vind adres & telefoonnummer';
+          html += '</a>';
+          
           html += '</div>';
         }
       });
     }
     resList.innerHTML = html;
 
-    // Toon tips
     if (ruleSet && ruleSet.tip) {
       resTips.innerHTML = "💡 " + ruleSet.tip;
       resTips.style.display = 'block';
@@ -375,7 +429,7 @@ button:hover { opacity: 0.9; }
   }
 
   function resetBtn() {
-    btn.innerHTML = 'ZOEK EISEN & LOKETTEN';
+    btn.innerHTML = 'ZOEK CONTACTGEGEVENS';
     btn.style.opacity = '1';
   }
 
