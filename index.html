@@ -3,180 +3,381 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
-<title>Ondernemen in Frankrijk – KvK / Chambre vinder per beroep en locatie</title>
-<meta name="description" content="Vind per beroep en postcode in Frankrijk de juiste instanties: CMA, CCI, URSSAF, mairie en verzekeringen. Praktische KvK- en Chambre-vinder.">
+<title>Checklist Ondernemen Frankrijk – Instanties & Eisen</title>
+<meta name="description" content="Vind direct de juiste Franse instanties en vereisten voor uw bedrijf in Frankrijk. Check per beroep en postcode.">
 
 <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@400;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
 
 <style>
-*{box-sizing:border-box}
-body{margin:0;font-family:Mulish,Arial,sans-serif;background:#f6f6f6;color:#333}
-main{max-width:760px;margin:20px auto;padding:16px}
-h1,h2{font-family:Poppins,sans-serif;color:#800000}
-.intro{background:#fff;padding:20px;border-radius:8px;margin-bottom:16px;border:1px solid #e0e0e0}
-#tool{background:#fff;border:1px solid #e0e0e0;border-radius:8px;overflow:hidden}
-.header{background:#800000;color:#fff;padding:20px;text-align:center}
-.content{padding:20px}
-label{font-weight:700;display:block;margin-bottom:6px}
-input,select{width:100%;padding:12px;margin-bottom:16px;border:1px solid #ccc;border-radius:4px;font-size:16px}
-button{width:100%;background:#800000;color:#fff;border:none;padding:14px;font-family:Poppins,sans-serif;font-weight:600;cursor:pointer;border-radius:4px}
-button:hover{opacity:.9}
-#error{display:none;background:#ffecec;color:#a00;padding:10px;margin-top:10px;border-radius:4px}
-#result{display:none;background:#fffce6;padding:20px;border-top:1px solid #eee}
-.box{background:#fff;border:1px solid #eaddb6;padding:12px;margin-bottom:10px;border-left:4px solid #800000}
-.box a{color:#800000;font-weight:700;text-decoration:none}
-.small{font-size:13px;opacity:.85;margin-top:10px}
+/* --- BASIS OPMAAK --- */
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: 'Mulish', sans-serif;
+  background-color: #f9f9f9;
+  color: #333;
+  line-height: 1.8em; /* Ruime regelafstand conform instructies */
+}
+
+main {
+  max-width: 700px;
+  margin: 40px auto;
+  padding: 20px;
+}
+
+/* --- TYPOGRAFIE & KLEUREN --- */
+h1, h2, h3 {
+  font-family: 'Poppins', sans-serif;
+  color: #800000; /* Kastanjebruin */
+  margin-top: 0;
+}
+
+h1 { font-size: 26px; margin-bottom: 10px; }
+h2 { font-size: 20px; }
+
+a { color: #800000; font-weight: bold; text-decoration: none; border-bottom: 1px solid transparent; transition: 0.2s; }
+a:hover { border-bottom-color: #800000; }
+
+/* --- CONTAINERS --- */
+.card {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  overflow: hidden;
+  margin-bottom: 30px;
+  border: 1px solid #eee;
+}
+
+.header-bg {
+  background-color: #800000;
+  color: #fff;
+  padding: 25px;
+  text-align: center;
+}
+
+.header-bg h2 { color: #fff; margin: 0; }
+.header-bg p { color: rgba(255,255,255,0.9); margin: 5px 0 0; font-size: 14px; }
+
+.content { padding: 30px; }
+
+/* --- FORMULIER --- */
+label {
+  display: block;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: #800000;
+  font-family: 'Poppins', sans-serif;
+}
+
+input, select {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-family: 'Mulish', sans-serif;
+  font-size: 16px;
+  background: #fff;
+}
+
+button {
+  display: block;
+  width: 100%;
+  background-color: #800000;
+  color: #fff;
+  border: none;
+  padding: 16px;
+  font-size: 16px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+button:hover { opacity: 0.9; }
+
+/* --- MELDINGEN --- */
+#msg-error {
+  display: none;
+  background-color: #ffebeb;
+  color: #c00;
+  padding: 15px;
+  margin-top: 20px;
+  border-radius: 6px;
+  border-left: 5px solid #c00;
+}
+
+/* --- RESULTATEN --- */
+#results-area {
+  display: none;
+  background-color: #fffcf0; /* Zacht geel accent */
+  border-top: 1px solid #eaddb6;
+  padding: 30px;
+}
+
+.res-header {
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #eaddb6;
+}
+
+.res-block {
+  background: #fff;
+  border: 1px solid #eaddb6;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 6px;
+  border-left: 4px solid #800000;
+}
+
+.tip-box {
+  background: #fff;
+  padding: 15px;
+  border-radius: 6px;
+  font-size: 14px;
+  color: #555;
+  margin-top: 20px;
+  border: 1px dashed #999;
+}
 </style>
 </head>
-
 <body>
+
 <main>
+  <div style="margin-bottom: 30px; text-align: center;">
+    <h1>Starten in Frankrijk</h1>
+    <p style="font-size: 18px; color: #555;">
+      Check direct welke instanties en verplichtingen gelden voor uw specifieke beroepsgroep en locatie.
+    </p>
+  </div>
 
-<section class="intro">
-<h1>Ondernemen in Frankrijk: KvK / Chambre vinder</h1>
-<p>
-Deze tool helpt u per <strong>beroep</strong> en <strong>postcode</strong> bij het vinden van de juiste
-Franse instanties (CMA, CCI, URSSAF, gemeente).
-U wordt steeds doorverwezen naar de <em>officiële ingang</em> van de bevoegde instantie.
-</p>
-</section>
+  <div class="card">
+    <div class="header-bg">
+      <h2>Ondernemersloket Vinder</h2>
+      <p>Zoek op postcode & activiteit</p>
+    </div>
 
-<section id="tool">
-<div class="header">
-<h2>Registratie-check ondernemer Frankrijk</h2>
-<p>Postcode + beroep</p>
-</div>
+    <div class="content">
+      <div style="margin-bottom: 10px;">
+        <label for="inp-pc">Postcode (Frankrijk)</label>
+        <input type="text" id="inp-pc" placeholder="Bijv. 24000" maxlength="5" inputmode="numeric">
+      </div>
 
-<div class="content">
-<label for="pc">Postcode</label>
-<input id="pc" type="text" placeholder="Bijv. 24000" maxlength="5" inputmode="numeric">
+      <div style="margin-bottom: 10px;">
+        <label for="inp-job">Hoofdactiviteit</label>
+        <select id="inp-job">
+          <option value="">-- Maak een keuze --</option>
+          
+          <optgroup label="Bouw & Ambacht">
+            <option value="bouw_alg">Algemeen (Timmerman, Schilder, Metselaar)</option>
+            <option value="loodgieter">Loodgieter / Installateur</option>
+            <option value="elektricien">Elektricien</option>
+          </optgroup>
 
-<label for="job">Beroep</label>
-<select id="job">
-<option value="">— Kies activiteit —</option>
+          <optgroup label="Horeca & Toerisme">
+            <option value="restaurant">Restaurant / Café</option>
+            <option value="foodtruck">Foodtruck / Markt</option>
+            <option value="gite">Gîte (Vakantieverhuur)</option>
+            <option value="chambre">Chambre d'Hôtes (B&B)</option>
+          </optgroup>
 
-<optgroup label="Bouw & Ambacht">
-<option value="schilder">Schilder</option>
-<option value="loodgieter">Loodgieter</option>
-<option value="elektricien">Elektricien</option>
-<option value="timmerman">Timmerman / menuisier</option>
-<option value="metselaar">Metselaar (gros œuvre)</option>
-</optgroup>
+          <optgroup label="Diensten">
+            <option value="consultant">Consultant / Coach / Tekstschrijver</option>
+            <option value="web_it">IT / Webdesign</option>
+            <option value="makelaar">Makelaar (Agent Immobilier)</option>
+            <option value="schoonmaak">Schoonmaakbedrijf</option>
+          </optgroup>
+        </select>
+      </div>
 
-<optgroup label="Horeca & Toerisme">
-<option value="restaurant">Restaurant</option>
-<option value="foodtruck">Foodtruck</option>
-<option value="gite">Gîte / verhuur</option>
-<option value="chambre">Chambre d’hôtes</option>
-</optgroup>
+      <button type="button" id="btn-search">Zoek Eisen & Loketten</button>
+      <div id="msg-error"></div>
+    </div>
 
-<optgroup label="Diensten & Vrije beroepen">
-<option value="consultant">Consultant / coach</option>
-<option value="web_it">IT / webdiensten</option>
-<option value="fotograaf">Fotograaf</option>
-<option value="schoonmaak">Schoonmaak</option>
-</optgroup>
-</select>
+    <div id="results-area">
+      <div class="res-header">
+        <strong>Locatie:</strong> <span id="res-city" style="color:#800000;">...</span><br>
+        <span style="font-size:14px; color:#666;">(Gebaseerd op officiële GEO-data)</span>
+      </div>
 
-<button id="btn" type="button">Zoek instanties</button>
-<div id="error"></div>
-<div class="small">Sommige postcodes horen bij meerdere gemeenten.</div>
-</div>
+      <h3 style="font-size:18px;">Vereiste Instanties:</h3>
+      <div id="res-list"></div>
 
-<div id="result">
-<p><strong>Locatie:</strong> <span id="city">–</span></p>
-<div id="list"></div>
-<p class="small">
-Indicatief overzicht. Lokale autoriteiten of opdrachtgevers kunnen aanvullende eisen stellen.
-</p>
-</div>
-</section>
-
+      <div id="res-tips" class="tip-box" style="display:none;"></div>
+      
+      <div style="margin-top:20px; text-align:center;">
+        <a href="https://formalites.entreprises.gouv.fr/" target="_blank">
+           Naar Guichet Unique (INPI) &rarr;
+        </a>
+        <div style="font-size:12px; margin-top:5px; color:#888;">Het enige officiële registratieportaal.</div>
+      </div>
+    </div>
+  </div>
 </main>
 
 <script>
-(function(){
+(function() {
+  // --- CONFIGURATIE ---
+  
+  // Data: Instanties
+  var INST = {
+    CMA:    { n: "CMA (Ambachtskamer)", t: "Verplichte registratie voor handarbeid/ambacht." },
+    CCI:    { n: "CCI (Kamer van Koophandel)", t: "Voor handelsactiviteiten en verkoop." },
+    URSSAF: { n: "URSSAF (Vrije beroepen)", t: "Uw loket voor sociale lasten (Intellectuele diensten)." },
+    MAIRIE: { n: "Mairie (Gemeente)", t: "Lokale melding of vergunning vereist." },
+    GRIFF:  { n: "Greffe du Tribunal", t: "Registratie handelsregister (via Guichet Unique)." },
+    PREF:   { n: "Préfecture", t: "Specifieke beroepskaarten of vergunningen." }
+  };
 
-const INST = {
-  CMA:{name:"Chambre de Métiers et de l’Artisanat",link:"https://www.cma-france.fr/reseau-cma"},
-  CCI:{name:"Chambre de Commerce et d’Industrie",link:"https://www.cci.fr/web/trouver-sa-cci"},
-  URSSAF:{name:"URSSAF",link:"https://www.urssaf.fr/portail/home/contact/contacts-regionaux.html"},
-  MAIRIE:{name:"Mairie (gemeente)",link:"https://www.service-public.fr/particuliers/vosdroits/N203"},
-  PREF:{name:"Préfecture",link:"https://www.interieur.gouv.fr/Contact/Prefectures"},
-  SP:{name:"Service-Public",link:"https://www.service-public.fr/professionnels-entreprises"},
-  GU:{name:"Guichet Unique ondernemingen",link:"https://formalites.entreprises.gouv.fr"}
-};
+  // Data: Regels & Tips per beroep
+  var RULES = {
+    bouw_alg: {
+      inst: ["CMA", "GRIFF"],
+      tip: "<strong>Let op:</strong> De 10-jarige verzekering (Garantie Décennale) is wettelijk verplicht vóór de start van elke klus. Vraag ook naar de 'Carte BTP' voor toegang tot bouwplaatsen."
+    },
+    loodgieter: {
+      inst: ["CMA", "GRIFF"],
+      tip: "<strong>Vereiste:</strong> Vakdiploma (CAP/BEP) of 3 jaar aantoonbare ervaring is verplicht. Vergeet de 'Garantie Décennale' verzekering niet!"
+    },
+    elektricien: {
+      inst: ["CMA", "GRIFF"],
+      tip: "<strong>Vereiste:</strong> Vakdiploma verplicht. Installaties moeten vaak gekeurd worden door de CONSUEL. Garantie Décennale verplicht."
+    },
+    restaurant: {
+      inst: ["CCI", "MAIRIE", "GRIFF"],
+      tip: "<strong>Training:</strong> U heeft een 'Permis d’Exploitation' (drankvergunning) en een HACCP (hygiëne) certificaat nodig."
+    },
+    foodtruck: {
+      inst: ["CCI", "MAIRIE", "CMA"],
+      tip: "<strong>Standplaats:</strong> Vraag bij elke gemeente apart een vergunning aan voor openbare weggebruik. Als u zelf gerechten bereidt, is ook inschrijving bij CMA nodig."
+    },
+    gite: {
+      inst: ["MAIRIE", "GRIFF"],
+      tip: "Meld de gîte aan bij de gemeente (Cerfa formulier). Voor belastingvoordeel kunt u classificatie ('Sterren') aanvragen."
+    },
+    chambre: {
+      inst: ["MAIRIE", "CCI"],
+      tip: "Max. 5 kamers en 15 personen. Ontbijt serveren is verplicht bij deze categorie."
+    },
+    consultant: {
+      inst: ["URSSAF"],
+      tip: "U valt meestal onder de 'Profession Libérale'. Let op: minder aftrekposten, maar lagere sociale lasten in het begin."
+    },
+    web_it: {
+      inst: ["URSSAF"],
+      tip: "Verkoop van diensten. Als u ook hardware verkoopt, komt de CCI erbij kijken."
+    },
+    makelaar: {
+      inst: ["CCI", "PREF"],
+      tip: "<strong>Strenge eisen:</strong> U heeft een 'Carte Professionnelle' (Carte T) nodig. Zonder diploma of ervaring is zelfstandig starten lastig (kijk naar 'Agent Commercial' onder een bestaand kantoor)."
+    },
+    schoonmaak: {
+      inst: ["CMA", "GRIFF"],
+      tip: "Voor algemene schoonmaak is geen diploma vereist, tenzij u werkt met industriële processen of desinfectie."
+    }
+  };
 
-const rules = {
-  schilder:["CMA","SP","GU"],
-  loodgieter:["CMA","SP","GU"],
-  elektricien:["CMA","SP","GU"],
-  timmerman:["CMA","SP","GU"],
-  metselaar:["CMA","SP","GU"],
-  restaurant:["CCI","MAIRIE","GU"],
-  foodtruck:["CCI","MAIRIE","GU"],
-  gite:["MAIRIE","SP"],
-  chambre:["MAIRIE","CCI"],
-  consultant:["URSSAF","GU"],
-  web_it:["URSSAF","GU"],
-  fotograaf:["URSSAF","CMA"],
-  schoonmaak:["CMA","GU"]
-};
+  // --- ELEMENTEN ---
+  var btn = document.getElementById('btn-search');
+  var inpPc = document.getElementById('inp-pc');
+  var inpJob = document.getElementById('inp-job');
+  var errBox = document.getElementById('msg-error');
+  var resArea = document.getElementById('results-area');
+  var resCity = document.getElementById('res-city');
+  var resList = document.getElementById('res-list');
+  var resTips = document.getElementById('res-tips');
 
-const btn=document.getElementById('btn');
-const err=document.getElementById('error');
-const res=document.getElementById('result');
+  // --- LOGICA ---
+  btn.addEventListener('click', function() {
+    // Reset UI
+    errBox.style.display = 'none';
+    resArea.style.display = 'none';
+    resTips.style.display = 'none';
+    btn.innerHTML = 'GEGEVENS OPHALEN...';
+    btn.style.opacity = '0.7';
 
-btn.onclick=function(){
-  err.style.display='none';
-  res.style.display='none';
+    var pc = inpPc.value.trim();
+    var jobKey = inpJob.value;
 
-  const pc=document.getElementById('pc').value.trim();
-  const job=document.getElementById('job').value;
+    // 1. Validatie
+    if (!/^\d{5}$/.test(pc)) {
+      showError("Voer een geldige Franse postcode in (5 cijfers).");
+      return;
+    }
+    if (jobKey === "") {
+      showError("Kies een beroepsgroep uit de lijst.");
+      return;
+    }
 
-  if(!/^\d{5}$/.test(pc)){
-    err.textContent='Vul een geldige postcode in.';
-    err.style.display='block';
-    return;
-  }
-  if(!job){
-    err.textContent='Kies een beroep.';
-    err.style.display='block';
-    return;
-  }
+    // 2. API Call (Locatie Check)
+    fetch('https://geo.api.gouv.fr/communes?codePostal=' + pc + '&fields=nom,codeDepartement')
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        if (!data || data.length === 0) {
+          throw new Error("Postcode onbekend");
+        }
 
-  fetch('https://geo.api.gouv.fr/communes?codePostal='+pc+'&fields=nom,codeDepartement')
-    .then(r=>r.json())
-    .then(list=>{
-      if(!list.length) throw 1;
+        // Pak de eerste stad of toon 'Meerdere'
+        var stadNaam = data[0].nom;
+        var deptCode = data[0].codeDepartement;
+        
+        if (data.length > 1) {
+          stadNaam = data[0].nom + " (en " + (data.length - 1) + " omliggende)";
+        }
 
-      const cities=list.map(c=>c.nom);
-      const dept=list[0].codeDepartement;
-
-      let cityText=cities.length===1
-        ? cities[0]+' ('+dept+')'
-        : 'Meerdere gemeenten ('+pc+'): '+cities.slice(0,6).join(', ')+' ('+dept+')';
-
-      document.getElementById('city').textContent=cityText;
-
-      let html='';
-      rules[job].forEach(k=>{
-        const i=INST[k];
-        html+=`<div class="box">
-          <strong>${i.name}</strong><br>
-          <a href="${i.link}" target="_blank" rel="noopener">Ga naar officiële contactpagina →</a>
-        </div>`;
+        toonResultaat(stadNaam, deptCode, jobKey);
+      })
+      .catch(function(e) {
+        showError("Locatie niet gevonden. Controleer de postcode.");
+        resetBtn();
       });
+  });
 
-      res.style.display='block';
-      document.getElementById('list').innerHTML=html;
-    })
-    .catch(()=>{
-      err.textContent='Postcode niet gevonden.';
-      err.style.display='block';
-    });
-};
+  function toonResultaat(stad, dept, jobKey) {
+    // Toon locatie
+    resCity.textContent = stad + " (Dept: " + dept + ")";
+
+    // Haal regels op
+    var ruleSet = RULES[jobKey];
+    var html = "";
+
+    // Loop door instanties
+    if (ruleSet && ruleSet.inst) {
+      ruleSet.inst.forEach(function(code) {
+        var info = INST[code];
+        if (info) {
+          html += '<div class="res-block">';
+          html += '<strong style="color:#800000; font-size:16px;">' + info.n + '</strong>';
+          html += '<div style="margin-top:5px; color:#444;">' + info.t + '</div>';
+          html += '</div>';
+        }
+      });
+    }
+    resList.innerHTML = html;
+
+    // Toon tips
+    if (ruleSet && ruleSet.tip) {
+      resTips.innerHTML = "💡 " + ruleSet.tip;
+      resTips.style.display = 'block';
+    }
+
+    resArea.style.display = 'block';
+    resetBtn();
+  }
+
+  function showError(msg) {
+    errBox.textContent = msg;
+    errBox.style.display = 'block';
+    resetBtn();
+  }
+
+  function resetBtn() {
+    btn.innerHTML = 'ZOEK EISEN & LOKETTEN';
+    btn.style.opacity = '1';
+  }
 
 })();
 </script>
